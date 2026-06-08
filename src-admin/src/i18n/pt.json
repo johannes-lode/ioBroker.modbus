@@ -171,5 +171,17 @@
   "Serial port": "Porta serial",
   "USB device ID": "ID do dispositivo USB",
   "USB device": "Dispositivo USB",
-  "Identified by vendor and product ID, so the OS may reassign the port name": "Identificado pelo ID do fornecedor e do produto, para que o SO possa reatribuir o nome da porta"
+  "Identified by vendor and product ID, so the OS may reassign the port name": "Identificado pelo ID do fornecedor e do produto, para que o SO possa reatribuir o nome da porta",
+  "Read notification": "Notificação de leitura",
+  "readNotifyExplanation": "Ao funcionar como escravo Modbus, um estado de notificação em readNotify.<namespace>.<id> é gravado sempre que um mestre externo lê um registo. No modo contador, o estado é incrementado a cada leitura (opcionalmente com um tempo de expiração para uso como watchdog); no modo pulso, fica brevemente em true. A notificação é enviada depois de a resposta já ter sido enviada ao mestre, por isso um valor atualizado só tem efeito na próxima leitura do mestre.",
+  "Notification mode": "Modo de notificação",
+  "notifyOnReadMode_help": "Contador: incrementa um número a cada leitura (com expiração opcional). Pulso: define brevemente true e depois false.",
+  "Counter": "Contador",
+  "Pulse": "Pulso",
+  "Counter expire time": "Tempo de expiração do contador",
+  "notifyOnReadExpire_help": "Tempo de expiração em segundos para o estado do contador. 0 desativa a expiração. Útil como watchdog para detetar quando o mestre deixa de ler.",
+  "Notify on read: Coils": "Notificar na leitura: Coils",
+  "Notify on read: Discrete inputs": "Notificar na leitura: Discrete Inputs",
+  "Notify on read: Input registers": "Notificar na leitura: Input Registers",
+  "Notify on read: Holding registers": "Notificar na leitura: Holding Registers"
 }

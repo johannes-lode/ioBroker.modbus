@@ -171,5 +171,17 @@
     "Serial port": "Serielle Schnittstelle",
     "USB device ID": "USB-Geräte-ID",
     "USB device": "USB-Gerät",
-    "Identified by vendor and product ID, so the OS may reassign the port name": "Anhand von Hersteller- und Produkt-ID identifiziert, sodass das Betriebssystem den Portnamen neu vergeben darf"
+    "Identified by vendor and product ID, so the OS may reassign the port name": "Anhand von Hersteller- und Produkt-ID identifiziert, sodass das Betriebssystem den Portnamen neu vergeben darf",
+    "Read notification": "Lese-Benachrichtigung",
+    "readNotifyExplanation": "Im Modbus-Slave-Betrieb wird bei jedem Lesezugriff eines externen Masters ein Benachrichtigungs-Datenpunkt unter readNotify.<namespace>.<id> geschrieben. Im Counter-Modus zählt der Datenpunkt bei jedem Lesen hoch (optional mit Verfallszeit für Watchdog-Zwecke); im Pulse-Modus wird er kurz auf true gesetzt. Die Benachrichtigung erfolgt erst, nachdem die Antwort bereits an den Master gesendet wurde – ein geänderter Wert wirkt sich daher erst beim nächsten Lesezugriff des Masters aus.",
+    "Notification mode": "Benachrichtigungsmodus",
+    "notifyOnReadMode_help": "Counter: Zähler wird bei jedem Lesen erhöht (optional mit Verfall). Pulse: kurz auf true, dann auf false.",
+    "Counter": "Zähler",
+    "Pulse": "Impuls",
+    "Counter expire time": "Zähler-Verfallszeit",
+    "notifyOnReadExpire_help": "Verfallszeit des Zähler-Datenpunkts in Sekunden. 0 deaktiviert den Verfall. Nützlich als Watchdog, um zu erkennen, wenn der Master nicht mehr liest.",
+    "Notify on read: Coils": "Bei Lesen benachrichtigen: Coils",
+    "Notify on read: Discrete inputs": "Bei Lesen benachrichtigen: Discrete Inputs",
+    "Notify on read: Input registers": "Bei Lesen benachrichtigen: Input Registers",
+    "Notify on read: Holding registers": "Bei Lesen benachrichtigen: Holding Registers"
 }

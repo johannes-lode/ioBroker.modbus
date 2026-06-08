@@ -247,7 +247,13 @@
       "certPublic": "",
       "certChained": "",
       "sslAllowSelfSigned": true,
-      "enableSanitization": false
+      "enableSanitization": false,
+      "notifyOnReadMode": "counter",
+      "notifyOnReadExpire": 0,
+      "notifyOnReadCoils": false,
+      "notifyOnReadDisInputs": false,
+      "notifyOnReadInputRegs": false,
+      "notifyOnReadHoldingRegs": false
     },
     "disInputs": [],
     "coils": [],

@@ -171,5 +171,17 @@
   "Serial port": "Port série",
   "USB device ID": "ID de périphérique USB",
   "USB device": "Périphérique USB",
-  "Identified by vendor and product ID, so the OS may reassign the port name": "Identifié par l’ID du fabricant et du produit, afin que le système puisse réattribuer le nom du port"
+  "Identified by vendor and product ID, so the OS may reassign the port name": "Identifié par l’ID du fabricant et du produit, afin que le système puisse réattribuer le nom du port",
+  "Read notification": "Notification de lecture",
+  "readNotifyExplanation": "Lorsqu'il fonctionne comme esclave Modbus, un état de notification sous readNotify.<namespace>.<id> est écrit chaque fois qu'un maître externe lit un registre. En mode compteur, l'état s'incrémente à chaque lecture (éventuellement avec un délai d'expiration pour un usage de chien de garde) ; en mode impulsion, il passe brièvement à true. La notification est envoyée une fois que la réponse a déjà été transmise au maître, de sorte qu'une valeur mise à jour ne prend effet qu'à la prochaine lecture du maître.",
+  "Notification mode": "Mode de notification",
+  "notifyOnReadMode_help": "Compteur : incrémente un nombre à chaque lecture (avec expiration facultative). Impulsion : passe brièvement à true, puis à false.",
+  "Counter": "Compteur",
+  "Pulse": "Impulsion",
+  "Counter expire time": "Délai d'expiration du compteur",
+  "notifyOnReadExpire_help": "Délai d'expiration en secondes pour l'état du compteur. 0 désactive l'expiration. Utile comme chien de garde pour détecter quand le maître cesse de lire.",
+  "Notify on read: Coils": "Notifier à la lecture : Coils",
+  "Notify on read: Discrete inputs": "Notifier à la lecture : Discrete Inputs",
+  "Notify on read: Input registers": "Notifier à la lecture : Input Registers",
+  "Notify on read: Holding registers": "Notifier à la lecture : Holding Registers"
 }

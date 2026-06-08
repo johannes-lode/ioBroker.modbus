@@ -171,5 +171,17 @@
   "Serial port": "串行端口",
   "USB device ID": "USB 设备 ID",
   "USB device": "USB 设备",
-  "Identified by vendor and product ID, so the OS may reassign the port name": "通过供应商和产品 ID 识别，因此操作系统可以重新分配端口名称"
+  "Identified by vendor and product ID, so the OS may reassign the port name": "通过供应商和产品 ID 识别，因此操作系统可以重新分配端口名称",
+  "Read notification": "读取通知",
+  "readNotifyExplanation": "作为 Modbus 从站运行时，每当外部主站读取寄存器，都会在 readNotify.<namespace>.<id> 下写入一个通知状态。在计数器模式下，状态在每次读取时递增（可选地设置过期时间用于看门狗用途）；在脉冲模式下，它会短暂地变为 true。该通知是在响应已经发送给主站之后才发出的，因此更新后的值只在主站下一次读取时才生效。",
+  "Notification mode": "通知模式",
+  "notifyOnReadMode_help": "计数器：每次读取时递增一个数字（可选过期）。脉冲：短暂设为 true，然后设为 false。",
+  "Counter": "计数器",
+  "Pulse": "脉冲",
+  "Counter expire time": "计数器过期时间",
+  "notifyOnReadExpire_help": "计数器状态的过期时间（秒）。0 表示禁用过期。可用作看门狗，以检测主站何时停止读取。",
+  "Notify on read: Coils": "读取时通知：Coils",
+  "Notify on read: Discrete inputs": "读取时通知：Discrete Inputs",
+  "Notify on read: Input registers": "读取时通知：Input Registers",
+  "Notify on read: Holding registers": "读取时通知：Holding Registers"
 }
