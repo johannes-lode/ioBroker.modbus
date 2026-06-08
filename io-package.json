@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "modbus",
-    "version": "8.2.0",
+    "version": "8.3.0-alpha.0",
     "news": {
+      "8.3.0-alpha.0": {
+        "en": "Slave mode: optional read notifications (counter/pulse) per register type when an external master reads registers, plus info.adapterStarts counter",
+        "de": "Slave-Modus: optionale Lese-Benachrichtigungen (Zähler/Impuls) pro Registertyp, wenn ein externer Master Register liest, plus info.adapterStarts-Zähler"
+      },
       "8.2.0": {
         "en": "Added selection of the serial device by its stable USB ID (vendor/product/serial), so the connection keeps working even if the OS reassigns the port name",
         "de": "Auswahl des seriellen Gerätes durch seine stabile USB-ID (Anbieter/Produkt/Serial) hinzugefügt, so dass die Verbindung weiterhin funktioniert, auch wenn das Betriebssystem den Portnamen zurückweist",
