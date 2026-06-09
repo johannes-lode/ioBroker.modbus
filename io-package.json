@@ -1,11 +1,11 @@
 {
   "common": {
     "name": "modbus",
-    "version": "8.3.0-alpha.0",
+    "version": "8.3.0-alpha.1",
     "news": {
-      "8.3.0-alpha.0": {
-        "en": "Slave mode: optional read notifications (counter/pulse) per register type when an external master reads registers, plus info.adapterStarts counter",
-        "de": "Slave-Modus: optionale Lese-Benachrichtigungen (Zähler/Impuls) pro Registertyp, wenn ein externer Master Register liest, plus info.adapterStarts-Zähler"
+      "8.3.0-alpha.1": {
+        "en": "Slave mode: optional read notifications (counter/pulse) per register type when an external master reads registers, plus info.adapterStarts counter. Fixes: FC1 coil reads now return current data, the adapter no longer crashes on a TCP listen error (e.g. EACCES), and the readNotify object tree is built under the correct channel",
+        "de": "Slave-Modus: optionale Lese-Benachrichtigungen (Zähler/Impuls) pro Registertyp, wenn ein externer Master Register liest, plus info.adapterStarts-Zähler. Behoben: FC1-Coil-Reads liefern jetzt aktuelle Daten, der Adapter stürzt bei einem TCP-Listen-Fehler (z.B. EACCES) nicht mehr ab, und der readNotify-Objektbaum wird unter dem korrekten Channel angelegt"
       },
       "8.2.0": {
         "en": "Added selection of the serial device by its stable USB ID (vendor/product/serial), so the connection keeps working even if the OS reassigns the port name",
