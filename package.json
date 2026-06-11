@@ -1,6 +1,6 @@
 {
   "name": "iobroker.modbus",
-  "version": "8.3.0-alpha.1",
+  "version": "8.3.0-alpha.6",
   "description": "Connect devices oder Modbus protocol to ioBroker",
   "author": {
     "name": "bluefox",
@@ -32,8 +32,11 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.3.2",
-    "@iobroker/modbus": "github:johannes-lode/iob-modbus-core#ee1c9305d40739626752a2ff4f2652009116dfb4"
+    "@iobroker/modbus": "github:johannes-lode/iob-modbus-core#ef3eba7b02a93a787aa0200aaeefcc76ee6cf2a2"
   },
+  "bundledDependencies": [
+    "@iobroker/modbus"
+  ],
   "devDependencies": {
     "@alcalzone/release-script": "^5.2.0",
     "@alcalzone/release-script-plugin-iobroker": "^5.2.0",

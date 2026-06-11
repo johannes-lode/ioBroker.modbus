@@ -258,20 +258,8 @@ const schema: ConfigItemPanel = {
             xs: 12,
             hidden: 'data.slave !== "1"',
         },
-        notifyOnReadMode: {
-            newLine: true,
-            type: 'select',
-            label: 'Notification mode',
-            help: 'notifyOnReadMode_help',
-            options: [
-                { value: 'counter', label: 'Counter' },
-                { value: 'pulse', label: 'Pulse' },
-            ],
-            xs: 12,
-            md: 6,
-            hidden: 'data.slave !== "1"',
-        },
         notifyOnReadExpire: {
+            newLine: true,
             type: 'number',
             min: 0,
             label: 'Counter expire time',
@@ -279,7 +267,7 @@ const schema: ConfigItemPanel = {
             help: 'notifyOnReadExpire_help',
             xs: 12,
             md: 6,
-            hidden: 'data.slave !== "1" || data.notifyOnReadMode === "pulse"',
+            hidden: 'data.slave !== "1"',
         },
         notifyOnReadCoils: {
             newLine: true,

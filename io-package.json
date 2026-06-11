@@ -1,8 +1,28 @@
 {
   "common": {
     "name": "modbus",
-    "version": "8.3.0-alpha.1",
+    "version": "8.3.0-alpha.6",
     "news": {
+      "8.3.0-alpha.6": {
+        "en": "Slave mode: readNotify pulse mode removed (caused a feedback loop); the read counter is now read-only and always numeric",
+        "de": "Slave-Modus: readNotify-Pulse-Modus entfernt (verursachte einen Rückkopplungsloop); der Lese-Zähler ist jetzt read-only und immer numerisch"
+      },
+      "8.3.0-alpha.5": {
+        "en": "Integration build: readNotify feature and the slave bugfixes (FC1 coils, listen-error, bit/byte read, buffer sizing) combined on one branch",
+        "de": "Integrations-Build: readNotify-Feature und die Slave-Bugfixes (FC1-Coils, Listen-Fehler, Bit/Byte-Read, Puffergröße) auf einem Branch vereint"
+      },
+      "8.3.0-alpha.4": {
+        "en": "Slave mode: coil and discrete-input buffers are sized correctly (ceil(addressHigh/8)) and reads write to the correct buffer bit — fixes \"illegal data address\" for tail bits for bit-oriented registers",
+        "de": "Slave-Modus: Coil- und Discrete-Input-Puffer werden korrekt dimensioniert (ceil(addressHigh/8)) und Lesezugriffe schreiben in das richtige Puffer-Bit — behebt \"illegal data address\" bei den letzten Bits bit-orientierter Register"
+      },
+      "8.3.0-alpha.3": {
+        "en": "Bundle the Modbus core into the package so the pinned fork build is deployed deterministically (no server-side git resolution)",
+        "de": "Modbus-Kern wird ins Paket gebündelt, damit der gepinnte Fork-Build deterministisch ausgeliefert wird (keine serverseitige git-Auflösung)"
+      },
+      "8.3.0-alpha.2": {
+        "en": "Slave mode: coil and discrete-input reads that do not start at address 0 now return current data instead of stale values",
+        "de": "Slave-Modus: Coil- und Discrete-Input-Reads, die nicht an Adresse 0 beginnen, liefern jetzt aktuelle Daten statt veralteter Werte"
+      },
       "8.3.0-alpha.1": {
         "en": "Slave mode: optional read notifications (counter/pulse) per register type when an external master reads registers, plus info.adapterStarts counter. Fixes: FC1 coil reads now return current data, the adapter no longer crashes on a TCP listen error (e.g. EACCES), and the readNotify object tree is built under the correct channel",
         "de": "Slave-Modus: optionale Lese-Benachrichtigungen (Zähler/Impuls) pro Registertyp, wenn ein externer Master Register liest, plus info.adapterStarts-Zähler. Behoben: FC1-Coil-Reads liefern jetzt aktuelle Daten, der Adapter stürzt bei einem TCP-Listen-Fehler (z.B. EACCES) nicht mehr ab, und der readNotify-Objektbaum wird unter dem korrekten Channel angelegt"
@@ -252,7 +272,6 @@
       "certChained": "",
       "sslAllowSelfSigned": true,
       "enableSanitization": false,
-      "notifyOnReadMode": "counter",
       "notifyOnReadExpire": 0,
       "notifyOnReadCoils": false,
       "notifyOnReadDisInputs": false,
