@@ -13,7 +13,6 @@ tmp
 /test/*.log
 /test/RMMS.exe
 *.tgz
-/build
 /test/RaModSter.ini
 .commitinfo
 /.claude/settings.local.json
