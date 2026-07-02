@@ -1,3 +1,4 @@
 {
-    "require": ["./test/mocha.setup.js"]
+    "require": ["ts-node/register/transpile-only", "./test/mocha.setup.js"],
+    "extension": ["ts", "js"]
 }

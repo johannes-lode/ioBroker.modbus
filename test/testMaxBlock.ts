@@ -1,8 +1,51 @@
-/* eslint-disable no-console */
-const assert = require('node:assert');
+import assert from 'node:assert';
+
+/** A single register entry as it comes from the adapter configuration. */
+interface RegisterConfig {
+    deviceId: number;
+    address: number;
+    len: number;
+    type?: string;
+}
+
+/** One contiguous read block produced by {@link iterateAddresses}. */
+interface Block {
+    start: number;
+    count: number;
+    startIndex?: number;
+    endIndex?: number;
+    end?: number;
+}
+
+/** Working object that is filled in place by {@link iterateAddresses}. */
+interface IterateResult {
+    config: RegisterConfig[];
+    addressLow: number;
+    addressHigh: number;
+    length: number;
+    blocks: Block[];
+    addressEnd?: number;
+}
+
+interface LocalOptions {
+    maxBlock: number;
+    maxBoolBlock: number;
+}
+
+/** Create a fresh result object with the fields {@link iterateAddresses} expects. */
+function makeResult(config: RegisterConfig[]): IterateResult {
+    return { config, addressLow: 0, addressHigh: 0, length: 0, blocks: [] };
+}
 
 // Import the splitByAddress logic from main.js
-function iterateAddresses(isBools, deviceId, result, regName, regType, localOptions) {
+export function iterateAddresses(
+    isBools: boolean,
+    deviceId: number,
+    result: IterateResult,
+    _regName: string,
+    _regType: string,
+    localOptions: LocalOptions,
+): void {
     const config = result.config;
 
     if (config && config.length) {
@@ -12,14 +55,14 @@ function iterateAddresses(isBools, deviceId, result, regName, regType, localOpti
         result.blocks = [];
 
         // Sort configs by address
-        config.sort((a, b) => parseInt(a.address, 10) - parseInt(b.address, 10));
+        config.sort((a, b) => parseInt(String(a.address), 10) - parseInt(String(b.address), 10));
 
         for (let i = config.length - 1; i >= 0; i--) {
             if (config[i].deviceId !== deviceId) {
                 config.splice(i, 1);
                 continue;
             }
-            const address = (config[i].address = parseInt(config[i].address, 10));
+            const address = (config[i].address = parseInt(String(config[i].address), 10));
 
             if (address < 0) {
                 config.splice(i, 1);
@@ -42,10 +85,10 @@ function iterateAddresses(isBools, deviceId, result, regName, regType, localOpti
         }
 
         const maxBlock = isBools ? localOptions.maxBoolBlock : localOptions.maxBlock;
-        let lastAddress = null;
+        let lastAddress: number | null = null;
         let startIndex = 0;
         let blockStart = 0;
-        let i;
+        let i: number;
         for (i = 0; i < config.length; i++) {
             if (config[i].deviceId !== deviceId) {
                 continue;
@@ -99,16 +142,14 @@ function iterateAddresses(isBools, deviceId, result, regName, regType, localOpti
 
 describe('Max Read Request Length', function () {
     it('should respect maxBlock for float registers', function () {
-        const result = {
-            config: [
-                { deviceId: 1, address: 4000, len: 7, type: 'floatbe' },
-                { deviceId: 1, address: 4007, len: 10, type: 'floatbe' }, // 17 total, under limit
-                { deviceId: 1, address: 4017, len: 5, type: 'floatbe' }, // would make 22 total, exceeds 20
-                { deviceId: 1, address: 4022, len: 15, type: 'floatbe' }, // under limit individually
-            ],
-        };
+        const result = makeResult([
+            { deviceId: 1, address: 4000, len: 7, type: 'floatbe' },
+            { deviceId: 1, address: 4007, len: 10, type: 'floatbe' }, // 17 total, under limit
+            { deviceId: 1, address: 4017, len: 5, type: 'floatbe' }, // would make 22 total, exceeds 20
+            { deviceId: 1, address: 4022, len: 15, type: 'floatbe' }, // under limit individually
+        ]);
 
-        const localOptions = {
+        const localOptions: LocalOptions = {
             maxBlock: 20,
             maxBoolBlock: 128,
         };
@@ -128,14 +169,14 @@ describe('Max Read Request Length', function () {
     });
 
     it('should respect maxBoolBlock for boolean registers', function () {
-        const boolConfig = [];
+        const boolConfig: RegisterConfig[] = [];
         // Create 50 consecutive boolean registers
         for (let i = 0; i < 50; i++) {
             boolConfig.push({ deviceId: 1, address: 7040 + i, len: 1 });
         }
 
-        const result = { config: boolConfig };
-        const localOptions = {
+        const result = makeResult(boolConfig);
+        const localOptions: LocalOptions = {
             maxBlock: 100,
             maxBoolBlock: 30,
         };
@@ -157,16 +198,14 @@ describe('Max Read Request Length', function () {
     it('should handle the original issue scenario correctly', function () {
         // Simulate a scenario similar to the original issue
         // where many small registers could be grouped into large blocks
-        const result = {
-            config: [],
-        };
+        const result = makeResult([]);
 
         // Create many single-word registers that could be grouped
         for (let addr = 4000; addr <= 4030; addr++) {
             result.config.push({ deviceId: 1, address: addr, len: 1, type: 'uint16be' });
         }
 
-        const localOptions = {
+        const localOptions: LocalOptions = {
             maxBlock: 20,
             maxBoolBlock: 128,
         };
@@ -187,16 +226,14 @@ describe('Max Read Request Length', function () {
 
     it('should handle boolean scenario from original issue', function () {
         // Simulate consecutive boolean registers that were creating blocks > 30
-        const result = {
-            config: [],
-        };
+        const result = makeResult([]);
 
         // Create 50 consecutive coil registers
         for (let addr = 7040; addr <= 7090; addr++) {
             result.config.push({ deviceId: 1, address: addr, len: 1 });
         }
 
-        const localOptions = {
+        const localOptions: LocalOptions = {
             maxBlock: 100,
             maxBoolBlock: 30,
         };
@@ -216,14 +253,12 @@ describe('Max Read Request Length', function () {
     });
 
     it('should split blocks correctly when approaching limit', function () {
-        const result = {
-            config: [
-                { deviceId: 1, address: 4000, len: 18, type: 'floatbe' }, // 18 registers
-                { deviceId: 1, address: 4018, len: 5, type: 'floatbe' }, // would make 23 total, exceeds 20
-            ],
-        };
+        const result = makeResult([
+            { deviceId: 1, address: 4000, len: 18, type: 'floatbe' }, // 18 registers
+            { deviceId: 1, address: 4018, len: 5, type: 'floatbe' }, // would make 23 total, exceeds 20
+        ]);
 
-        const localOptions = {
+        const localOptions: LocalOptions = {
             maxBlock: 20,
             maxBoolBlock: 128,
         };
@@ -238,10 +273,24 @@ describe('Max Read Request Length', function () {
 });
 
 describe('Bool address alignment to 16 bit', function () {
+    /** Minimal block shape the alignment helpers operate on. */
+    interface AlignBlock {
+        start: number;
+        count: number;
+        end: number;
+    }
+
+    interface AlignResult {
+        addressLow: number;
+        length: number;
+        addressEnd: number;
+        blocks: AlignBlock[];
+    }
+
     // Previous ("old") behaviour: rounding addressLow down to a 16-bit boundary
     // without growing the length -> the aligned block no longer reached the upper
     // end of the original address range.
-    function alignOld(result) {
+    function alignOld(result: AlignResult): AlignResult {
         result.addressLow = (result.addressLow >> 4) << 4;
         if (result.length % 16) {
             result.length = ((result.length >> 4) + 1) << 4;
@@ -259,7 +308,7 @@ describe('Bool address alignment to 16 bit', function () {
 
     // Current ("new") behaviour: the length is increased by the alignment offset,
     // so the aligned block still covers the whole original range.
-    function alignNew(result) {
+    function alignNew(result: AlignResult): AlignResult {
         const oldStart = result.addressLow;
         result.addressLow = (result.addressLow >> 4) << 4;
         result.length += oldStart - result.addressLow;
@@ -280,7 +329,7 @@ describe('Bool address alignment to 16 bit', function () {
     }
 
     // Original range: addresses 30..60 (addressLow=30, length=30).
-    const makeInput = () => ({
+    const makeInput = (): AlignResult => ({
         addressLow: 30,
         length: 30,
         blocks: [{ start: 30, count: 30, end: 60 }],
@@ -313,7 +362,3 @@ describe('Bool address alignment to 16 bit', function () {
         assert.ok(aligned.addressEnd < 60, 'documents the bug the new alignment fixes');
     });
 });
-
-module.exports = {
-    iterateAddresses,
-};

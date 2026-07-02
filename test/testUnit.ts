@@ -17,10 +17,10 @@
  *   node:assert.
  *
  * Run:
- *   npx mocha test/testUnit.js
+ *   npx mocha test/testUnit.ts
  */
-const assert = require('node:assert');
-const { utils } = require('@iobroker/testing');
+import assert from 'node:assert';
+import { utils } from '@iobroker/testing';
 
 describe('modbus - unit test (mock adapter, no js-controller)', () => {
     // database = in-memory objects/states DB
@@ -50,7 +50,7 @@ describe('modbus - unit test (mock adapter, no js-controller)', () => {
         });
 
         // Variant A: read via the adapter
-        const obj = await adapter.getObjectAsync('holdingRegisters.40001');
+        const obj = (await adapter.getObjectAsync('holdingRegisters.40001')) as ioBroker.StateObject | null | undefined;
         assert.ok(obj, 'object should exist');
         assert.strictEqual(obj.common.name, 'Temperature');
         assert.strictEqual(obj.common.unit, '°C');
@@ -65,6 +65,7 @@ describe('modbus - unit test (mock adapter, no js-controller)', () => {
 
         // Read via the adapter
         const state = await adapter.getStateAsync('holdingRegisters.40001');
+        assert.ok(state, 'state should exist');
         assert.strictEqual(state.val, 21.5);
         assert.strictEqual(state.ack, true);
     });
@@ -74,6 +75,7 @@ describe('modbus - unit test (mock adapter, no js-controller)', () => {
         await adapter.setStateAsync('coils.1', { val: true, ack: false });
 
         const state = await adapter.getStateAsync('coils.1');
+        assert.ok(state, 'state should exist');
         assert.strictEqual(state.val, true);
         assert.strictEqual(state.ack, false);
     });
@@ -85,6 +87,7 @@ describe('modbus - unit test (mock adapter, no js-controller)', () => {
 
         // The short ID on read is expanded back to "modbus.0.info.connection".
         const state = await adapter.getStateAsync('info.connection');
+        assert.ok(state, 'state should exist');
         assert.strictEqual(state.val, false);
     });
 });

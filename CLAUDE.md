@@ -14,9 +14,11 @@ npm run npm                  # Install root + frontend (src-admin) dependencies
 npm run build                # Full build: TypeScript backend + React admin UI (~40s, do not cancel)
 npm run build-backend        # TypeScript backend compilation only
 npm run lint                 # ESLint (only checks src/ TypeScript, ignores src-admin/admin/test/build)
-npm test                     # Integration tests via mocha (~60s, do not cancel)
-npm run test:package         # Package structure validation
-npm run test:integration     # Same as npm test (mocha test/testAdapter.js --exit)
+npm test                     # Type-check + package + unit + integration tests (~60s, do not cancel)
+npm run test:types           # Type-check the TS test files (tsc -p test/tsconfig.json)
+npm run test:unit            # Fast unit tests, no js-controller (test/testUnit.ts + test/testMaxBlock.ts)
+npm run test:package         # Package structure validation (test/testPackageFiles.ts)
+npm run test:integration     # Integration test: starts a fresh js-controller (mocha test/testAdapter.ts --exit)
 ```
 
 Individual admin UI build steps (via `node tasks.js`):

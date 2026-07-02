@@ -3,8 +3,8 @@
     "version": "8.2.2",
     "private": true,
     "dependencies": {
-        "@iobroker/adapter-react-v5": "^8.1.2",
-        "@iobroker/json-config": "^8.1.11",
+        "@iobroker/adapter-react-v5": "^8.2.13",
+        "@iobroker/json-config": "^8.4.13",
         "@mui/icons-material": "^6.5.0",
         "@mui/material": "^6.5.0",
         "@vitejs/plugin-react": "^5.1.4",
