@@ -171,5 +171,9 @@
   "Serial port": "串行端口",
   "USB device ID": "USB 设备 ID",
   "USB device": "USB 设备",
-  "Identified by vendor and product ID, so the OS may reassign the port name": "通过供应商和产品 ID 识别，因此操作系统可以重新分配端口名称"
+  "Identified by vendor and product ID, so the OS may reassign the port name": "通过供应商和产品 ID 识别，因此操作系统可以重新分配端口名称",
+    "Serve polled data as TCP slave": "将轮询的数据作为 TCP 从站提供",
+    "Additionally serve the polled data as a Modbus TCP slave": "此外，将轮询的数据作为 Modbus TCP 从站提供",
+    "Proxy bind address": "代理绑定地址",
+    "Proxy port": "代理端口"
 }

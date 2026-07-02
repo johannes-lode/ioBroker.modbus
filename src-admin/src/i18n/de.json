@@ -171,5 +171,9 @@
     "Serial port": "Serielle Schnittstelle",
     "USB device ID": "USB-Geräte-ID",
     "USB device": "USB-Gerät",
-    "Identified by vendor and product ID, so the OS may reassign the port name": "Anhand von Hersteller- und Produkt-ID identifiziert, sodass das Betriebssystem den Portnamen neu vergeben darf"
+    "Identified by vendor and product ID, so the OS may reassign the port name": "Anhand von Hersteller- und Produkt-ID identifiziert, sodass das Betriebssystem den Portnamen neu vergeben darf",
+    "Serve polled data as TCP slave": "Abgefragte Daten als TCP-Slave bereitstellen",
+    "Additionally serve the polled data as a Modbus TCP slave": "Zusätzlich die abgefragten Daten als Modbus-TCP-Slave bereitstellen",
+    "Proxy bind address": "Proxy-Bind-Adresse",
+    "Proxy port": "Proxy-Port"
 }

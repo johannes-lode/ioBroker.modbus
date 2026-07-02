@@ -171,5 +171,9 @@
   "Serial port": "Seriële poort",
   "USB device ID": "USB-apparaat-ID",
   "USB device": "USB-apparaat",
-  "Identified by vendor and product ID, so the OS may reassign the port name": "Geïdentificeerd op leveranciers- en product-ID, zodat het besturingssysteem de poortnaam opnieuw kan toewijzen"
+  "Identified by vendor and product ID, so the OS may reassign the port name": "Geïdentificeerd op leveranciers- en product-ID, zodat het besturingssysteem de poortnaam opnieuw kan toewijzen",
+    "Serve polled data as TCP slave": "Opgevraagde gegevens als TCP-slave aanbieden",
+    "Additionally serve the polled data as a Modbus TCP slave": "Bied de opgevraagde gegevens ook aan als Modbus TCP-slave",
+    "Proxy bind address": "Proxy bind-adres",
+    "Proxy port": "Proxy-poort"
 }

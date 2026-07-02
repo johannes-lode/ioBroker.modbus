@@ -171,5 +171,9 @@
     "Serial port": "Serial port",
     "USB device ID": "USB device ID",
     "USB device": "USB device",
-    "Identified by vendor and product ID, so the OS may reassign the port name": "Identified by vendor and product ID, so the OS may reassign the port name"
+    "Identified by vendor and product ID, so the OS may reassign the port name": "Identified by vendor and product ID, so the OS may reassign the port name",
+    "Serve polled data as TCP slave": "Serve polled data as TCP slave",
+    "Additionally serve the polled data as a Modbus TCP slave": "Additionally serve the polled data as a Modbus TCP slave",
+    "Proxy bind address": "Proxy bind address",
+    "Proxy port": "Proxy port"
 }

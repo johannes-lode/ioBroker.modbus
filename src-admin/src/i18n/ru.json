@@ -171,5 +171,9 @@
   "Serial port": "Последовательный порт",
   "USB device ID": "Идентификатор USB-устройства",
   "USB device": "USB-устройство",
-  "Identified by vendor and product ID, so the OS may reassign the port name": "Определяется по идентификатору производителя и продукта, поэтому ОС может переназначить имя порта"
+  "Identified by vendor and product ID, so the OS may reassign the port name": "Определяется по идентификатору производителя и продукта, поэтому ОС может переназначить имя порта",
+    "Serve polled data as TCP slave": "Предоставлять опрошенные данные как TCP Slave",
+    "Additionally serve the polled data as a Modbus TCP slave": "Дополнительно предоставлять опрошенные данные как Modbus TCP Slave",
+    "Proxy bind address": "Адрес привязки прокси",
+    "Proxy port": "Порт прокси"
 }
