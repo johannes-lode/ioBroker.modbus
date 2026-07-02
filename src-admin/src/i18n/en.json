@@ -192,5 +192,13 @@
     "Max address gap to combine": "Max address gap to combine",
     "Reading registers with gaps": "Reading registers with gaps",
     "maxGap_help": "Registers within this address gap are read in one request. 0 = read only contiguous configured registers; higher = fewer requests but reads addresses in between. Default 10.",
-    "maxGapExplanation": "To reduce the number of Modbus requests, the adapter combines several configured registers into one read request even when there are small gaps between their addresses. This is faster, but it also reads the registers lying in those gaps — which are not in your configuration and may not exist on the device. Some devices answer such a request with \"ILLEGAL DATA ADDRESS\", so the whole block fails to read. This option sets how large a gap (in registers) may be bridged. Set it to 0 to combine only registers with consecutive addresses, so the adapter reads exactly the registers you configured (contiguous registers are still merged into one request). Higher values combine more aggressively and produce fewer requests, at the risk of reading non-existent addresses. Default: 10."
+    "maxGapExplanation": "To reduce the number of Modbus requests, the adapter combines several configured registers into one read request even when there are small gaps between their addresses. This is faster, but it also reads the registers lying in those gaps — which are not in your configuration and may not exist on the device. Some devices answer such a request with \"ILLEGAL DATA ADDRESS\", so the whole block fails to read. This option sets how large a gap (in registers) may be bridged. Set it to 0 to combine only registers with consecutive addresses, so the adapter reads exactly the registers you configured (contiguous registers are still merged into one request). Higher values combine more aggressively and produce fewer requests, at the risk of reading non-existent addresses. Default: 10.",
+    "Read notification": "Read notification",
+    "readNotifyExplanation": "When running as a Modbus slave, a notification state under readNotify.<namespace>.<id> is written whenever an external master reads a register. The state is read-only and counts up on each read (optionally with an expire time for watchdog use). The notification is sent after the response has already gone out to the master, so an updated value only takes effect on the master's next read.",
+    "Counter expire time": "Counter expire time",
+    "notifyOnReadExpire_help": "Expire time in seconds for the counter state. 0 disables expiry. Useful as a watchdog to detect when the master stops reading.",
+    "Notify on read: Coils": "Notify on read: Coils",
+    "Notify on read: Discrete inputs": "Notify on read: Discrete inputs",
+    "Notify on read: Input registers": "Notify on read: Input registers",
+    "Notify on read: Holding registers": "Notify on read: Holding registers"
 }
