@@ -5,6 +5,8 @@ import { type ConfigItemPanel, JsonConfigComponent } from '@iobroker/json-config
 
 import type { Modbus } from '@iobroker/modbus';
 
+import DeviceTimeoutTable from '../Components/DeviceTimeoutTable';
+
 interface ConnectionProps {
     common: ioBroker.InstanceCommon;
     native: Modbus.ModbusAdapterConfig;
@@ -341,6 +343,12 @@ const schema: ConfigItemPanel = {
 };
 
 export default function Connection(props: ConnectionProps): React.JSX.Element {
+    const params = props.native.params;
+    // `slave` may be stored as "1"/1/true depending on config age, so compare loosely
+    const slaveVal = params?.slave as unknown;
+    const isSlave = slaveVal === '1' || slaveVal === 1 || slaveVal === true;
+    const multiDeviceId = params?.multiDeviceId === true || params?.multiDeviceId === 'true';
+
     return (
         <div style={{ width: '100%', minHeight: '100%' }}>
             <JsonConfigComponent
@@ -363,6 +371,12 @@ export default function Connection(props: ConnectionProps): React.JSX.Element {
                 theme={props.theme}
                 withoutSaveButtons
             />
+            {!isSlave && multiDeviceId ? (
+                <DeviceTimeoutTable
+                    native={props.native}
+                    onChange={props.changeNative}
+                />
+            ) : null}
         </div>
     );
 }

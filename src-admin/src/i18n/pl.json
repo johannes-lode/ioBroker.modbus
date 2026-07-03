@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Udostępniaj odpytywane dane jako slave TCP",
     "Additionally serve the polled data as a Modbus TCP slave": "Dodatkowo udostępniaj odpytywane dane jako slave Modbus TCP",
     "Proxy bind address": "Adres bind proxy",
-    "Proxy port": "Port proxy"
+    "Proxy port": "Port proxy",
+    "Per-device timeouts": "Limity czasu na urządzenie",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Identyfikatory urządzeń pojawiają się tutaj dopiero po ich użyciu w tabelach rejestrów. Pozostaw pole puste, aby użyć wartości globalnej.",
+    "Timeout (ms)": "Limit czasu (ms)",
+    "No device IDs are used in the register tables yet.": "W tabelach rejestrów nie użyto jeszcze żadnych identyfikatorów urządzeń.",
+    "Wait time (ms)": "Czas oczekiwania (ms)",
+    "Max address gap to combine": "Maks. odstęp adresów do łączenia",
+    "Reading registers with gaps": "Odczyt rejestrów z lukami",
+    "maxGap_help": "Rejestry w obrębie tej luki adresowej są odczytywane w jednym żądaniu. 0 = odczyt tylko sąsiadujących skonfigurowanych rejestrów; więcej = mniej żądań, ale odczyt adresów pośrednich. Domyślnie 10.",
+    "maxGapExplanation": "Aby zmniejszyć liczbę żądań Modbus, adapter łączy kilka skonfigurowanych rejestrów w jedno żądanie odczytu, nawet gdy między ich adresami występują małe luki. Jest to szybsze, ale odczytuje także rejestry w tych lukach, których nie ma w konfiguracji i które mogą nie istnieć w urządzeniu. Niektóre urządzenia odpowiadają na takie żądanie błędem \"ILLEGAL DATA ADDRESS\", przez co cały blok nie zostaje odczytany. Ta opcja określa, jak duża luka (w rejestrach) może zostać zmostkowana. Ustaw 0, aby łączyć tylko rejestry o kolejnych adresach; adapter odczyta wtedy dokładnie skonfigurowane rejestry (sąsiadujące rejestry nadal są łączone w jedno żądanie). Wyższe wartości łączą bardziej agresywnie i generują mniej żądań, ryzykując odczyt nieistniejących adresów. Domyślnie: 10."
 }

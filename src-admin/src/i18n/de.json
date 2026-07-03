@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Abgefragte Daten als TCP-Slave bereitstellen",
     "Additionally serve the polled data as a Modbus TCP slave": "Zusätzlich die abgefragten Daten als Modbus-TCP-Slave bereitstellen",
     "Proxy bind address": "Proxy-Bind-Adresse",
-    "Proxy port": "Proxy-Port"
+    "Proxy port": "Proxy-Port",
+    "Per-device timeouts": "Timeouts pro Gerät",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Geräte-IDs erscheinen hier erst, nachdem sie in den Register-Tabellen verwendet wurden. Lassen Sie ein Feld leer, um den globalen Wert zu verwenden.",
+    "Timeout (ms)": "Timeout (ms)",
+    "No device IDs are used in the register tables yet.": "In den Register-Tabellen werden noch keine Geräte-IDs verwendet.",
+    "Wait time (ms)": "Wartezeit (ms)",
+    "Max address gap to combine": "Maximale Adresslücke zum Zusammenfassen",
+    "Reading registers with gaps": "Register mit Lücken lesen",
+    "maxGap_help": "Register innerhalb dieser Adresslücke werden in einer Anfrage gelesen. 0 = nur zusammenhängende konfigurierte Register lesen; höher = weniger Anfragen, liest aber Adressen dazwischen mit. Standard 10.",
+    "maxGapExplanation": "Um die Anzahl der Modbus-Anfragen zu verringern, fasst der Adapter mehrere konfigurierte Register zu einer Leseanfrage zusammen – auch wenn zwischen ihren Adressen kleine Lücken liegen. Das ist schneller, liest aber auch die Register in diesen Lücken mit, die nicht konfiguriert sind und auf dem Gerät möglicherweise nicht existieren. Manche Geräte beantworten eine solche Anfrage mit \"ILLEGAL DATA ADDRESS\", wodurch der gesamte Block fehlschlägt. Diese Option legt fest, wie groß eine Lücke (in Registern) sein darf, um überbrückt zu werden. Setzen Sie sie auf 0, um nur Register mit aufeinanderfolgenden Adressen zusammenzufassen; der Adapter liest dann genau die konfigurierten Register (zusammenhängende Register werden weiterhin zu einer Anfrage gebündelt). Höhere Werte fassen aggressiver zusammen und erzeugen weniger Anfragen, riskieren aber das Lesen nicht existierender Adressen. Standard: 10."
 }

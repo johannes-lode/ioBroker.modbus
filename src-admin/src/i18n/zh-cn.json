@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "将轮询的数据作为 TCP 从站提供",
     "Additionally serve the polled data as a Modbus TCP slave": "此外，将轮询的数据作为 Modbus TCP 从站提供",
     "Proxy bind address": "代理绑定地址",
-    "Proxy port": "代理端口"
+    "Proxy port": "代理端口",
+    "Per-device timeouts": "每个设备的超时",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "设备 ID 仅在寄存器表中使用后才会显示在此处。将字段留空以使用全局值。",
+    "Timeout (ms)": "超时（毫秒）",
+    "No device IDs are used in the register tables yet.": "寄存器表中尚未使用任何设备 ID。",
+    "Wait time (ms)": "等待时间（毫秒）",
+    "Max address gap to combine": "合并的最大地址间隔",
+    "Reading registers with gaps": "读取有间隔的寄存器",
+    "maxGap_help": "此地址间隔内的寄存器将在一个请求中读取。0 = 仅读取连续配置的寄存器；数值越大请求越少，但会读取中间的地址。默认 10。",
+    "maxGapExplanation": "为了减少 Modbus 请求的数量，适配器会将多个已配置的寄存器合并到一个读取请求中，即使它们的地址之间存在小的间隔。这样更快，但也会读取这些间隔中的寄存器——它们不在您的配置中，并且设备上可能不存在。有些设备会对此类请求返回 \"ILLEGAL DATA ADDRESS\"（非法数据地址）错误，导致整个块读取失败。此选项设置可以跨越多大的间隔（以寄存器计）。设置为 0 时，仅合并地址连续的寄存器，适配器将只读取您配置的寄存器（连续的寄存器仍会合并为一个请求）。数值越大，合并越激进、请求越少，但有读取不存在地址的风险。默认值：10。"
 }

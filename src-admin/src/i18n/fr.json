@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Fournir les données interrogées comme esclave TCP",
     "Additionally serve the polled data as a Modbus TCP slave": "Fournir en plus les données interrogées comme esclave Modbus TCP",
     "Proxy bind address": "Adresse de liaison du proxy",
-    "Proxy port": "Port du proxy"
+    "Proxy port": "Port du proxy",
+    "Per-device timeouts": "Délais d'expiration par appareil",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Les identifiants d'appareil n'apparaissent ici qu'après avoir été utilisés dans les tables de registres. Laissez un champ vide pour utiliser la valeur globale.",
+    "Timeout (ms)": "Délai (ms)",
+    "No device IDs are used in the register tables yet.": "Aucun identifiant d'appareil n'est encore utilisé dans les tables de registres.",
+    "Wait time (ms)": "Temps d'attente (ms)",
+    "Max address gap to combine": "Écart d'adresse max. à combiner",
+    "Reading registers with gaps": "Lecture de registres avec des trous",
+    "maxGap_help": "Les registres compris dans cet écart d'adresse sont lus en une seule requête. 0 = lire uniquement les registres configurés contigus ; plus élevé = moins de requêtes mais lit les adresses intermédiaires. Défaut 10.",
+    "maxGapExplanation": "Pour réduire le nombre de requêtes Modbus, l'adaptateur regroupe plusieurs registres configurés en une seule requête de lecture, même lorsqu'il existe de petits écarts entre leurs adresses. C'est plus rapide, mais cela lit aussi les registres situés dans ces écarts, qui ne figurent pas dans votre configuration et peuvent ne pas exister sur l'appareil. Certains appareils répondent à une telle requête par \"ILLEGAL DATA ADDRESS\", et tout le bloc échoue. Cette option définit la taille de l'écart (en registres) pouvant être comblé. Réglez-la sur 0 pour ne regrouper que les registres à adresses consécutives ; l'adaptateur lit alors exactement les registres configurés (les registres contigus restent fusionnés en une requête). Des valeurs plus élevées regroupent plus agressivement et produisent moins de requêtes, au risque de lire des adresses inexistantes. Défaut : 10."
 }

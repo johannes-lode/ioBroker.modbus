@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Fornisci i dati letti come slave TCP",
     "Additionally serve the polled data as a Modbus TCP slave": "Fornisci anche i dati letti come slave Modbus TCP",
     "Proxy bind address": "Indirizzo di bind del proxy",
-    "Proxy port": "Porta del proxy"
+    "Proxy port": "Porta del proxy",
+    "Per-device timeouts": "Timeout per dispositivo",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Gli ID dei dispositivi appaiono qui solo dopo essere stati usati nelle tabelle dei registri. Lascia vuoto un campo per usare il valore globale.",
+    "Timeout (ms)": "Timeout (ms)",
+    "No device IDs are used in the register tables yet.": "Nessun ID dispositivo è ancora usato nelle tabelle dei registri.",
+    "Wait time (ms)": "Tempo di attesa (ms)",
+    "Max address gap to combine": "Intervallo massimo di indirizzi da combinare",
+    "Reading registers with gaps": "Lettura di registri con lacune",
+    "maxGap_help": "I registri entro questo intervallo di indirizzi vengono letti in un'unica richiesta. 0 = leggere solo registri configurati contigui; più alto = meno richieste ma legge gli indirizzi intermedi. Predefinito 10.",
+    "maxGapExplanation": "Per ridurre il numero di richieste Modbus, l'adattatore combina più registri configurati in un'unica richiesta di lettura, anche quando ci sono piccole lacune tra i loro indirizzi. Questo è più veloce, ma legge anche i registri in tali lacune, che non sono nella configurazione e potrebbero non esistere sul dispositivo. Alcuni dispositivi rispondono a tale richiesta con \"ILLEGAL DATA ADDRESS\", facendo fallire l'intero blocco. Questa opzione imposta quanto può essere grande una lacuna (in registri) da colmare. Impostala a 0 per combinare solo registri con indirizzi consecutivi; l'adattatore legge allora esattamente i registri configurati (i registri contigui vengono comunque uniti in un'unica richiesta). Valori più alti combinano in modo più aggressivo e producono meno richieste, con il rischio di leggere indirizzi inesistenti. Predefinito: 10."
 }

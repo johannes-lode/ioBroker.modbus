@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Fornecer dados consultados como escravo TCP",
     "Additionally serve the polled data as a Modbus TCP slave": "Fornecer adicionalmente os dados consultados como escravo Modbus TCP",
     "Proxy bind address": "Endereço de bind do proxy",
-    "Proxy port": "Porta do proxy"
+    "Proxy port": "Porta do proxy",
+    "Per-device timeouts": "Tempos limite por dispositivo",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Os IDs de dispositivo aparecem aqui somente depois de serem usados nas tabelas de registradores. Deixe um campo vazio para usar o valor global.",
+    "Timeout (ms)": "Tempo limite (ms)",
+    "No device IDs are used in the register tables yet.": "Ainda não há IDs de dispositivo usados nas tabelas de registradores.",
+    "Wait time (ms)": "Tempo de espera (ms)",
+    "Max address gap to combine": "Intervalo máximo de endereços para combinar",
+    "Reading registers with gaps": "Leitura de registradores com lacunas",
+    "maxGap_help": "Os registradores dentro deste intervalo de endereços são lidos em uma única solicitação. 0 = ler apenas registradores configurados contíguos; maior = menos solicitações, mas lê endereços intermediários. Padrão 10.",
+    "maxGapExplanation": "Para reduzir o número de solicitações Modbus, o adaptador combina vários registradores configurados em uma única solicitação de leitura, mesmo quando há pequenas lacunas entre seus endereços. Isso é mais rápido, mas também lê os registradores dessas lacunas, que não estão na sua configuração e podem não existir no dispositivo. Alguns dispositivos respondem a essa solicitação com \"ILLEGAL DATA ADDRESS\", e todo o bloco falha na leitura. Esta opção define o tamanho da lacuna (em registradores) que pode ser transposta. Defina como 0 para combinar apenas registradores com endereços consecutivos; assim o adaptador lê exatamente os registradores configurados (registradores contíguos ainda são mesclados em uma solicitação). Valores mais altos combinam de forma mais agressiva e geram menos solicitações, com o risco de ler endereços inexistentes. Padrão: 10."
 }

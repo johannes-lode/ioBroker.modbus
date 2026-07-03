@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Serve polled data as TCP slave",
     "Additionally serve the polled data as a Modbus TCP slave": "Additionally serve the polled data as a Modbus TCP slave",
     "Proxy bind address": "Proxy bind address",
-    "Proxy port": "Proxy port"
+    "Proxy port": "Proxy port",
+    "Per-device timeouts": "Per-device timeouts",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.",
+    "Timeout (ms)": "Timeout (ms)",
+    "No device IDs are used in the register tables yet.": "No device IDs are used in the register tables yet.",
+    "Wait time (ms)": "Wait time (ms)",
+    "Max address gap to combine": "Max address gap to combine",
+    "Reading registers with gaps": "Reading registers with gaps",
+    "maxGap_help": "Registers within this address gap are read in one request. 0 = read only contiguous configured registers; higher = fewer requests but reads addresses in between. Default 10.",
+    "maxGapExplanation": "To reduce the number of Modbus requests, the adapter combines several configured registers into one read request even when there are small gaps between their addresses. This is faster, but it also reads the registers lying in those gaps — which are not in your configuration and may not exist on the device. Some devices answer such a request with \"ILLEGAL DATA ADDRESS\", so the whole block fails to read. This option sets how large a gap (in registers) may be bridged. Set it to 0 to combine only registers with consecutive addresses, so the adapter reads exactly the registers you configured (contiguous registers are still merged into one request). Higher values combine more aggressively and produce fewer requests, at the risk of reading non-existent addresses. Default: 10."
 }

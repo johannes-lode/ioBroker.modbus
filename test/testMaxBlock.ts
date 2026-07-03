@@ -30,6 +30,8 @@ interface IterateResult {
 interface LocalOptions {
     maxBlock: number;
     maxBoolBlock: number;
+    /** Max address gap bridged when merging registers into one read block; 0 = only contiguous (issue #581). Default 10 */
+    maxGap?: number;
 }
 
 /** Create a fresh result object with the fields {@link iterateAddresses} expects. */
@@ -85,6 +87,7 @@ export function iterateAddresses(
         }
 
         const maxBlock = isBools ? localOptions.maxBoolBlock : localOptions.maxBlock;
+        const maxGap = localOptions.maxGap ?? 10;
         let lastAddress: number | null = null;
         let startIndex = 0;
         let blockStart = 0;
@@ -103,7 +106,8 @@ export function iterateAddresses(
             // try to detect the next block
             if (result.blocks) {
                 const wouldExceedLimit = config[i].address + config[i].len - blockStart > maxBlock;
-                const hasAddressGap = config[i].address - lastAddress > 10 && config[i].len < 10;
+                const hasAddressGap =
+                    config[i].address - lastAddress > maxGap && (maxGap === 0 || config[i].len < 10);
 
                 if (hasAddressGap || wouldExceedLimit) {
                     if (!result.blocks.map(obj => obj.start).includes(blockStart)) {
@@ -269,6 +273,64 @@ describe('Max Read Request Length', function () {
         assert.strictEqual(result.blocks.length, 2);
         assert.strictEqual(result.blocks[0].count, 18); // First block
         assert.strictEqual(result.blocks[1].count, 5); // Second block
+    });
+});
+
+describe('maxGap - address gaps between registers (issue #581)', function () {
+    // Registers 11174, 11176, 11177 are configured; 11175 does not exist on the device.
+    const gapConfig = (): RegisterConfig[] => [
+        { deviceId: 1, address: 11174, len: 1, type: 'uint16be' },
+        { deviceId: 1, address: 11176, len: 1, type: 'uint16be' },
+        { deviceId: 1, address: 11177, len: 1, type: 'uint16be' },
+    ];
+
+    it('default (maxGap 10) bridges the gap into one block (the reported problem)', function () {
+        const result = makeResult(gapConfig());
+        iterateAddresses(false, 1, result, 'holdingRegisters', 'holdingRegs', {
+            maxBlock: 100,
+            maxBoolBlock: 128,
+        });
+
+        // One block 11174..11177 -> reads the non-existent 11175 -> ILLEGAL DATA ADDRESS
+        assert.strictEqual(result.blocks.length, 1);
+        assert.strictEqual(result.blocks[0].start, 11174);
+        assert.strictEqual(result.blocks[0].count, 4);
+    });
+
+    it('maxGap 0 never bridges a gap: only contiguous registers are combined', function () {
+        const result = makeResult(gapConfig());
+        iterateAddresses(false, 1, result, 'holdingRegisters', 'holdingRegs', {
+            maxBlock: 100,
+            maxBoolBlock: 128,
+            maxGap: 0,
+        });
+
+        // Two blocks: 11174 alone, and the contiguous 11176+11177 together
+        assert.strictEqual(result.blocks.length, 2);
+        assert.deepStrictEqual(
+            result.blocks.map(b => [b.start, b.count]),
+            [
+                [11174, 1],
+                [11176, 2],
+            ],
+        );
+    });
+
+    it('maxGap 0 still combines a fully contiguous run into a single block', function () {
+        const result = makeResult([
+            { deviceId: 1, address: 100, len: 1, type: 'uint16be' },
+            { deviceId: 1, address: 101, len: 1, type: 'uint16be' },
+            { deviceId: 1, address: 102, len: 1, type: 'uint16be' },
+        ]);
+        iterateAddresses(false, 1, result, 'holdingRegisters', 'holdingRegs', {
+            maxBlock: 100,
+            maxBoolBlock: 128,
+            maxGap: 0,
+        });
+
+        assert.strictEqual(result.blocks.length, 1);
+        assert.strictEqual(result.blocks[0].start, 100);
+        assert.strictEqual(result.blocks[0].count, 3);
     });
 });
 

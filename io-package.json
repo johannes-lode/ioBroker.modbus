@@ -225,6 +225,7 @@
       "keepAliveInterval": 0,
       "maxBlock": 100,
       "maxBoolBlock": 128,
+      "maxGap": 10,
       "multiDeviceId": false,
       "proxy": false,
       "proxyBind": "0.0.0.0",
@@ -255,7 +256,8 @@
     "disInputs": [],
     "coils": [],
     "inputRegs": [],
-    "holdingRegs": []
+    "holdingRegs": [],
+    "deviceTimeouts": {}
   },
   "instanceObjects": [
     {

@@ -175,5 +175,14 @@
     "Serve polled data as TCP slave": "Opgevraagde gegevens als TCP-slave aanbieden",
     "Additionally serve the polled data as a Modbus TCP slave": "Bied de opgevraagde gegevens ook aan als Modbus TCP-slave",
     "Proxy bind address": "Proxy bind-adres",
-    "Proxy port": "Proxy-poort"
+    "Proxy port": "Proxy-poort",
+    "Per-device timeouts": "Time-outs per apparaat",
+    "Device IDs appear here only after they are used in the register tables. Leave a field empty to use the global value.": "Apparaat-ID's verschijnen hier pas nadat ze in de registertabellen zijn gebruikt. Laat een veld leeg om de globale waarde te gebruiken.",
+    "Timeout (ms)": "Time-out (ms)",
+    "No device IDs are used in the register tables yet.": "Er worden nog geen apparaat-ID's gebruikt in de registertabellen.",
+    "Wait time (ms)": "Wachttijd (ms)",
+    "Max address gap to combine": "Max. adresgat om te combineren",
+    "Reading registers with gaps": "Registers met gaten lezen",
+    "maxGap_help": "Registers binnen dit adresgat worden in één verzoek gelezen. 0 = alleen aaneengesloten geconfigureerde registers lezen; hoger = minder verzoeken, maar leest tussenliggende adressen. Standaard 10.",
+    "maxGapExplanation": "Om het aantal Modbus-verzoeken te verminderen, combineert de adapter meerdere geconfigureerde registers in één leesverzoek, zelfs als er kleine gaten tussen hun adressen zitten. Dit is sneller, maar leest ook de registers in die gaten, die niet in uw configuratie staan en mogelijk niet op het apparaat bestaan. Sommige apparaten beantwoorden zo'n verzoek met \"ILLEGAL DATA ADDRESS\", waardoor het hele blok mislukt. Deze optie bepaalt hoe groot een gat (in registers) overbrugd mag worden. Stel in op 0 om alleen registers met opeenvolgende adressen te combineren; de adapter leest dan precies de geconfigureerde registers (aaneengesloten registers worden nog steeds tot één verzoek samengevoegd). Hogere waarden combineren agressiever en genereren minder verzoeken, met het risico niet-bestaande adressen te lezen. Standaard: 10."
 }
