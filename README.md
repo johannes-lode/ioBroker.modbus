@@ -350,7 +350,7 @@ There are some programs in folder `test` to test the TCP communication:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 8.3.0 (2026-07-03)
 - (@GermanBluefox) Added a "Max address gap to combine" setting (issue #581): controls how large an address gap may be bridged when combining registers into one read request. Set it to 0 to read only contiguous configured registers, so devices that reject a non-existent register in a gap no longer fail the whole read (requires `@iobroker/modbus` >= 7.5.1)
 - (@GermanBluefox) Added per-device timeout and wait time (issue #605): when "Multi device IDs" is enabled, the Connection tab shows a table of all device IDs used in the register tables, each with its own timeout and wait time (blank = global value)
 - (@GermanBluefox) Added a proxy mode (issue #775): a master can additionally serve its polled data as a Modbus TCP slave. Enable it in the Connection tab (requires `@iobroker/modbus` >= 7.5.1)
@@ -372,11 +372,6 @@ There are some programs in folder `test` to test the TCP communication:
 
 ### 8.1.3 (2026-04-13)
 - (@GermanBluefox) Corrected room definition for the first register
-
-### 8.1.2 (2026-04-13)
-* (@GermanBluefox) Added sanitizing of the values
-* (@GermanBluefox) Added "ttyADM***" to the list of possible serial ports
-* (@GermanBluefox) Write cyclic values even if they are not polled
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

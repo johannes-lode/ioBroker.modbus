@@ -1,4 +1,9 @@
 # Older changes
+## 8.1.2 (2026-04-13)
+* (@GermanBluefox) Added sanitizing of the values
+* (@GermanBluefox) Added "ttyADM***" to the list of possible serial ports
+* (@GermanBluefox) Write cyclic values even if they are not polled
+
 ## 8.0.5 (2026-04-11)
 * (@GermanBluefox) Fixed possible errors
 
