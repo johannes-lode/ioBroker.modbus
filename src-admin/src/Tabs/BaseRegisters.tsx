@@ -29,10 +29,10 @@ interface BaseRegistersState {
 }
 
 export default abstract class BaseRegisters extends Component<BaseRegistersProps, BaseRegistersState> {
-    protected nativeField: Modbus.RegisterType;
-    protected nativeFieldName: 'inputRegisters' | 'holdingRegisters' | 'coils' | 'discreteInputs';
-    protected offsetName: 'inputRegsOffset' | 'holdingRegsOffset' | 'coilsOffset' | 'disInputsOffset';
-    protected fields: RegisterField[];
+    protected abstract nativeField: Modbus.RegisterType;
+    protected abstract nativeFieldName: 'inputRegisters' | 'holdingRegisters' | 'coils' | 'discreteInputs';
+    protected abstract offsetName: 'inputRegsOffset' | 'holdingRegsOffset' | 'coilsOffset' | 'disInputsOffset';
+    protected fields!: RegisterField[];
 
     public constructor(props: BaseRegistersProps) {
         super(props);
@@ -87,7 +87,7 @@ export default abstract class BaseRegisters extends Component<BaseRegistersProps
         }
     };
 
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line class-methods-use-this,react/no-unused-class-component-methods
     isShowExtendedModeSwitch(): boolean {
         return true;
     }

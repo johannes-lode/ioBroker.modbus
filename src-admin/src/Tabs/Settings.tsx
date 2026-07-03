@@ -266,34 +266,44 @@ export default function Settings(props: SettingsProps): React.JSX.Element {
                     native.params = params as Modbus.ModbusParametersTyped;
                     if (native.params.showAliases !== showAliases) {
                         setShowAliases(native.params.showAliases);
-                        ['disInputs', 'inputRegs', 'holdingRegs', 'coils'].forEach(
-                            (nativeParam: Modbus.RegisterType): void => {
-                                native[nativeParam].forEach(item => {
-                                    if (native.params.showAliases) {
-                                        item._address = address2alias(nativeParam, item._address);
-                                        if (native.params.directAddresses) {
-                                            item._address = nonDirect2direct(nativeParam, item._address);
-                                        }
-                                    } else {
-                                        if (native.params.directAddresses) {
-                                            item._address = direct2nonDirect(nativeParam, item._address);
-                                        }
-                                        item._address = alias2address(nativeParam, item._address);
+                        ['disInputs', 'inputRegs', 'holdingRegs', 'coils'].forEach((nativeParam: string): void => {
+                            native[nativeParam as Modbus.RegisterType].forEach(item => {
+                                if (native.params.showAliases) {
+                                    item._address = address2alias(nativeParam as Modbus.RegisterType, item._address);
+                                    if (native.params.directAddresses) {
+                                        item._address = nonDirect2direct(
+                                            nativeParam as Modbus.RegisterType,
+                                            item._address,
+                                        );
                                     }
-                                });
-                            },
-                        );
+                                } else {
+                                    if (native.params.directAddresses) {
+                                        item._address = direct2nonDirect(
+                                            nativeParam as Modbus.RegisterType,
+                                            item._address,
+                                        );
+                                    }
+                                    item._address = alias2address(nativeParam as Modbus.RegisterType, item._address);
+                                }
+                            });
+                        });
                     }
                     // detect changes of directAddresses and showAliases
                     if (native.params.directAddresses !== directAddresses) {
                         setDirectAddresses(native.params.directAddresses);
                         if (native.params.showAliases) {
-                            ['disInputs', 'coils'].forEach((nativeParam: Modbus.RegisterType): void => {
+                            ['disInputs', 'coils'].forEach((nativeParam: string): void => {
                                 native[nativeParam as 'disInputs' | 'coils'].forEach(item => {
                                     if (native.params.directAddresses) {
-                                        item._address = nonDirect2direct(nativeParam, item._address);
+                                        item._address = nonDirect2direct(
+                                            nativeParam as Modbus.RegisterType,
+                                            item._address,
+                                        );
                                     } else {
-                                        item._address = direct2nonDirect(nativeParam, item._address);
+                                        item._address = direct2nonDirect(
+                                            nativeParam as Modbus.RegisterType,
+                                            item._address,
+                                        );
                                     }
                                 });
                             });

@@ -50,11 +50,11 @@ export default function TsvDialog(props: {
         let success = true;
         const errors = [];
         if (fields) {
-            for (const index in props.fields) {
+            for (let index = 0; index < props.fields.length; index++) {
                 if (props.fields[index].name !== fields[index]) {
                     errors.push(
                         <>
-                            No field <i>{props.fields[index].name}</i> in position <i>{parseInt(index) + 1}</i>!
+                            No field <i>{props.fields[index].name}</i> in position <i>{index + 1}</i>!
                         </>,
                     );
                     success = false;
@@ -64,7 +64,7 @@ export default function TsvDialog(props: {
 
         const dataTyped: Modbus.Register[] = data.map((itemValues, itemIndex) => {
             const item: Modbus.Register = {} as Modbus.Register;
-            for (const index in props.fields) {
+            for (let index = 0; index < props.fields.length; index++) {
                 if (
                     props.fields[index].type === 'select' &&
                     !props.fields[index].options?.map(option => option.value).includes(itemValues[index] as string)

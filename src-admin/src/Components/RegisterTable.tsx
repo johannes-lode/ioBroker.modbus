@@ -74,7 +74,7 @@ const DataCell = (props: {
     themeType: ThemeType;
     sortedItem: { $index: number; item: Record<string, any> };
     field: {
-        name: string;
+        name: keyof Modbus.Register;
         title: string;
         type: string;
         width?: number | string;
@@ -87,8 +87,8 @@ const DataCell = (props: {
     editMode: boolean;
     setEditMode: (editMode: boolean) => void;
     rooms: Record<string, ioBroker.EnumObject>;
-    getDisable: (index: number, field: string) => boolean;
-    changeParam: (index: number, field: string, value: string | boolean) => void;
+    getDisable: (index: number, field: keyof Modbus.Register) => boolean;
+    changeParam: (index: number, field: keyof Modbus.Register, value: string | boolean) => void;
 }): React.JSX.Element => {
     const sortedItem = props.sortedItem;
     const field = props.field;
@@ -273,8 +273,8 @@ export default function RegisterTable(props: {
     orderBy: keyof Modbus.Register | '$index';
     order: 'asc' | 'desc';
     themeType: ThemeType;
-    getDisable: (index: number, field: string) => boolean;
-    changeParam: (index: number, field: string, value: string | boolean) => void;
+    getDisable: (index: number, field: keyof Modbus.Register) => boolean;
+    changeParam: (index: number, field: keyof Modbus.Register, value: string | boolean) => void;
     alive: boolean;
     changed?: boolean;
     values: { [id: string]: ioBroker.State | null | undefined };
@@ -362,8 +362,8 @@ export default function RegisterTable(props: {
                                     let indeterminate = false;
                                     let trueFound = false;
                                     let falseFound = false;
-                                    for (const k in props.data) {
-                                        if (props.data[k][field.name]) {
+                                    for (const item of props.data) {
+                                        if (item[field.name]) {
                                             isChecked = true;
                                             trueFound = true;
                                         } else {
@@ -467,7 +467,7 @@ export default function RegisterTable(props: {
                                     props.offset,
                                 );
                             } else if (!props.native.params.doNotIncludeAdrInId || !sortedItem.item.name) {
-                                // add address if not disabled or name not empty
+                                // add address if not disabled or name is not empty
                                 id += sortedItem.item.address;
                                 if (props.native.params.preserveDotsInId) {
                                     id += '_';
