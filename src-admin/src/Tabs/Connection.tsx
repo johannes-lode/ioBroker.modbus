@@ -33,6 +33,7 @@ const schema: ConfigItemPanel = {
                 { value: 'serial', label: 'Serial' },
                 { value: 'tcprtu', label: 'RTU over TCP (Master)' },
                 { value: 'tcp-ssl', label: 'TCP with SSL/TLS (Master)' },
+                { value: 'udp', label: 'UDP (Master)' },
             ],
             xs: 12,
             sm: 6,

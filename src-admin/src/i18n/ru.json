@@ -1,4 +1,12 @@
 {
+  "Freeze order while editing (do not re-sort)": "Заморозить порядок при редактировании (не пересортировывать)",
+  "Group by device ID": "Группировать по ID устройства",
+  "Load from file": "Загрузить из файла",
+  "Save to file": "Сохранить в файл",
+  "Edit data": "Редактировать данные",
+  "Edit or export data (TSV, CSV, JSON)": "Редактировать или экспортировать данные (TSV, CSV, JSON)",
+  "Format": "Формат",
+  "You can copy, paste and edit the data.": "Вы можете копировать, вставлять и редактировать данные.",
   "Add DB": "Добавить DB",
   "Add line": "Добавить строку",
   "Address": "Адрес",

@@ -1,4 +1,12 @@
 {
+  "Freeze order while editing (do not re-sort)": "Заморозити порядок під час редагування (не пересортовувати)",
+  "Group by device ID": "Групувати за ID пристрою",
+  "Load from file": "Завантажити з файлу",
+  "Save to file": "Зберегти у файл",
+  "Edit data": "Редагувати дані",
+  "Edit or export data (TSV, CSV, JSON)": "Редагувати або експортувати дані (TSV, CSV, JSON)",
+  "Format": "Формат",
+  "You can copy, paste and edit the data.": "Ви можете копіювати, вставляти та редагувати дані.",
   "Add DB": "Додати БД",
   "Add line": "Додайте лінію",
   "Address": "Адреса",

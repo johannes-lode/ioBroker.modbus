@@ -1,4 +1,12 @@
 {
+  "Freeze order while editing (do not re-sort)": "编辑时冻结顺序（不重新排序）",
+  "Group by device ID": "按设备 ID 分组",
+  "Load from file": "从文件加载",
+  "Save to file": "保存到文件",
+  "Edit data": "编辑数据",
+  "Edit or export data (TSV, CSV, JSON)": "编辑或导出数据 (TSV、CSV、JSON)",
+  "Format": "格式",
+  "You can copy, paste and edit the data.": "您可以复制、粘贴和编辑数据。",
   "Add DB": "添加数据库",
   "Add line": "添加行",
   "Address": "地址",

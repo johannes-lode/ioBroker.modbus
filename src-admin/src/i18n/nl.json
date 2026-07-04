@@ -1,4 +1,12 @@
 {
+  "Freeze order while editing (do not re-sort)": "Volgorde bevriezen tijdens bewerken (niet opnieuw sorteren)",
+  "Group by device ID": "Groeperen op apparaat-ID",
+  "Load from file": "Uit bestand laden",
+  "Save to file": "Opslaan naar bestand",
+  "Edit data": "Gegevens bewerken",
+  "Edit or export data (TSV, CSV, JSON)": "Gegevens bewerken of exporteren (TSV, CSV, JSON)",
+  "Format": "Formaat",
+  "You can copy, paste and edit the data.": "U kunt de gegevens kopiëren, plakken en bewerken.",
   "Add DB": "Voeg DB toe",
   "Add line": "Lijn toevoegen",
   "Address": "Adres",

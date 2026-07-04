@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import './RegisterTable.css';
 
@@ -17,7 +17,16 @@ import {
     Tooltip,
 } from '@mui/material';
 
-import { Delete as DeleteIcon, Add as AddIcon, ImportExport, CleaningServices } from '@mui/icons-material';
+import {
+    Delete as DeleteIcon,
+    Add as AddIcon,
+    ImportExport,
+    CleaningServices,
+    Sort as SortIcon,
+    AccountTree as AccountTreeIcon,
+    ExpandMore as ExpandMoreIcon,
+    ChevronRight as ChevronRightIcon,
+} from '@mui/icons-material';
 
 import {
     I18n,
@@ -67,6 +76,13 @@ const styles: Record<string, any> = {
     },
     nonEditMode: {
         cursor: 'pointer',
+    },
+    groupHeader: {
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        whiteSpace: 'nowrap',
+        padding: '0px 8px',
+        backgroundColor: 'rgba(128,128,128,0.15)',
     },
 };
 
@@ -256,6 +272,10 @@ function address2alias(id: Modbus.RegisterType, address: number | string, isDire
     return address + offset;
 }
 
+type RenderItem =
+    | { kind: 'header'; deviceId: number; count: number }
+    | { kind: 'row'; sortedItem: { item: Modbus.Register; $index: number } };
+
 export default function RegisterTable(props: {
     data: Modbus.Register[];
     fields: RegisterField[];
@@ -301,8 +321,129 @@ export default function RegisterTable(props: {
         item: null,
         action: null,
     });
+    // "Freeze order" (issue #249): render in insertion order so rows do not jump around while editing
+    const [frozen, setFrozen] = useState(window.localStorage.getItem('Modbus.freezeOrder') === 'true');
+    // Tree view (issue #249): group rows by device/slave id under collapsible headers (multiDeviceId only)
+    const [treeView, setTreeView] = useState(window.localStorage.getItem('Modbus.treeView') !== 'false');
+    const [collapsedGroups, setCollapsedGroups] = useState<Set<number>>(new Set());
+    // Row virtualization state (issue #249): only render the rows near the viewport for large tables
+    const [scrollTop, setScrollTop] = useState(0);
+    const [viewportHeight, setViewportHeight] = useState(() =>
+        Math.max(200, (typeof window !== 'undefined' ? window.innerHeight : 800) - 200),
+    );
+    const [rowHeight, setRowHeight] = useState(33);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const firstRowRef = useRef<HTMLTableRowElement | null>(null);
+    const rowMeasuredRef = useRef(false);
 
-    const sortedData = props.getSortedData(props.data, props.orderBy, props.order);
+    useEffect(() => {
+        const measure = (): void => {
+            if (containerRef.current) {
+                setViewportHeight(containerRef.current.clientHeight);
+            }
+        };
+        measure();
+        window.addEventListener('resize', measure);
+        return () => window.removeEventListener('resize', measure);
+    }, []);
+
+    useEffect(() => {
+        // Measure the real row height once, so the virtual scroll spacers are accurate
+        if (!rowMeasuredRef.current && firstRowRef.current) {
+            const h = firstRowRef.current.offsetHeight;
+            if (h) {
+                rowMeasuredRef.current = true;
+                setRowHeight(h);
+            }
+        }
+    });
+
+    const sortedData = props.getSortedData(
+        props.data,
+        frozen ? '$index' : props.orderBy,
+        frozen ? 'asc' : props.order,
+    );
+
+    const visibleFieldCount = props.fields.filter(
+        item =>
+            (extendedMode || !item.expert) &&
+            (sanitizeMode || !item.sanitize) &&
+            (!props.formulaDisabled || !item.formulaDisabled),
+    ).length;
+    // columns = visible fields + optional live-value column + delete column
+    const colCount = visibleFieldCount + (props.alive && !props.changed ? 1 : 0) + 1;
+
+    // Build the flat list of render items. In multiDeviceId mode the tree view groups rows under a
+    // collapsible "Slave ID" header; otherwise it is just the data rows (issue #249).
+    const grouped = !!props.native.params.multiDeviceId && treeView;
+    const renderItems: RenderItem[] = [];
+    if (grouped) {
+        const deviceIds = Array.from(
+            new Set(sortedData.map(s => parseInt(s.item.deviceId as string, 10) || 0)),
+        ).sort((a, b) => a - b);
+        deviceIds.forEach(deviceId => {
+            const rowsOfDevice = sortedData.filter(s => (parseInt(s.item.deviceId as string, 10) || 0) === deviceId);
+            renderItems.push({ kind: 'header', deviceId, count: rowsOfDevice.length });
+            if (!collapsedGroups.has(deviceId)) {
+                rowsOfDevice.forEach(sortedItem => renderItems.push({ kind: 'row', sortedItem }));
+            }
+        });
+    } else {
+        sortedData.forEach(sortedItem => renderItems.push({ kind: 'row', sortedItem }));
+    }
+
+    // Virtualize (window) only large lists so typical small ones behave exactly as before (issue #249)
+    const total = renderItems.length;
+    const useWindow = total > 100 && viewportHeight > 0 && rowHeight > 0;
+    let startIndex = 0;
+    let endIndex = total;
+    if (useWindow) {
+        const overscan = 8;
+        startIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - overscan);
+        endIndex = Math.min(total, startIndex + Math.ceil(viewportHeight / rowHeight) + overscan * 2);
+        // keep the row that is being edited mounted so it never loses focus while typing
+        const editPos = renderItems.findIndex(it => it.kind === 'row' && it.sortedItem.$index === editMode);
+        if (editPos >= 0) {
+            startIndex = Math.min(startIndex, editPos);
+            endIndex = Math.max(endIndex, editPos + 1);
+        }
+    }
+    const visibleItems = renderItems.slice(startIndex, endIndex);
+    const firstDataVisibleIndex = visibleItems.findIndex(it => it.kind === 'row');
+    const topPad = startIndex * rowHeight;
+    const bottomPad = (total - endIndex) * rowHeight;
+
+    const toggleGroup = (deviceId: number): void =>
+        setCollapsedGroups(prev => {
+            const next = new Set(prev);
+            if (next.has(deviceId)) {
+                next.delete(deviceId);
+            } else {
+                next.add(deviceId);
+            }
+            return next;
+        });
+    const spacer = (height: number, key: string): React.JSX.Element | null =>
+        height > 0 ? (
+            <TableRow
+                key={key}
+                style={{ height }}
+            >
+                <TableCell
+                    colSpan={colCount}
+                    style={{ padding: 0, border: 0, height }}
+                />
+            </TableRow>
+        ) : null;
+
+    const handleChangeOrder = (orderBy: keyof Modbus.Register, order: 'asc' | 'desc'): void => {
+        // sorting via a column header implicitly leaves the "frozen" mode
+        if (frozen) {
+            window.localStorage.setItem('Modbus.freezeOrder', 'false');
+            setFrozen(false);
+        }
+        props.onChangeOrder(orderBy, order);
+    };
 
     return (
         <div>
@@ -312,7 +453,7 @@ export default function RegisterTable(props: {
                         <AddIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title={I18n.t('Edit as TSV (Tab separated values)')}>
+                <Tooltip title={I18n.t('Edit or export data (TSV, CSV, JSON)')}>
                     <IconButton onClick={() => setTsvDialogOpen(true)}>
                         <ImportExport />
                     </IconButton>
@@ -328,6 +469,32 @@ export default function RegisterTable(props: {
                         <IconExpert />
                     </IconButton>
                 </Tooltip>
+                <Tooltip title={I18n.t('Freeze order while editing (do not re-sort)')}>
+                    <IconButton
+                        color={frozen ? 'primary' : 'inherit'}
+                        onClick={() => {
+                            const newFrozen = !frozen;
+                            window.localStorage.setItem('Modbus.freezeOrder', newFrozen ? 'true' : 'false');
+                            setFrozen(newFrozen);
+                        }}
+                    >
+                        <SortIcon />
+                    </IconButton>
+                </Tooltip>
+                {props.native.params.multiDeviceId ? (
+                    <Tooltip title={I18n.t('Group by device ID')}>
+                        <IconButton
+                            color={treeView ? 'primary' : 'inherit'}
+                            onClick={() => {
+                                const newTree = !treeView;
+                                window.localStorage.setItem('Modbus.treeView', newTree ? 'true' : 'false');
+                                setTreeView(newTree);
+                            }}
+                        >
+                            <AccountTreeIcon />
+                        </IconButton>
+                    </Tooltip>
+                ) : null}
                 {extendedMode && props.fields.some(f => f.sanitize) ? (
                     <Tooltip title={I18n.t('Toggle sanitize columns')}>
                         <IconButton
@@ -342,7 +509,11 @@ export default function RegisterTable(props: {
                     </Tooltip>
                 ) : null}
             </div>
-            <div style={styles.tableContainer}>
+            <div
+                style={styles.tableContainer}
+                ref={containerRef}
+                onScroll={e => setScrollTop((e.target as HTMLDivElement).scrollTop)}
+            >
                 <Table
                     size="small"
                     stickyHeader
@@ -410,12 +581,12 @@ export default function RegisterTable(props: {
                                             ) : null}
                                             {field.sorted ? (
                                                 <TableSortLabel
-                                                    active={field.name === props.orderBy}
+                                                    active={!frozen && field.name === props.orderBy}
                                                     direction={props.order}
                                                     onClick={() => {
                                                         const isAsc =
                                                             props.orderBy === field.name && props.order === 'asc';
-                                                        props.onChangeOrder(field.name, isAsc ? 'desc' : 'asc');
+                                                        handleChangeOrder(field.name, isAsc ? 'desc' : 'asc');
                                                     }}
                                                 >
                                                     {I18n.t(field.title)}
@@ -450,7 +621,26 @@ export default function RegisterTable(props: {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {sortedData.map(sortedItem => {
+                        {spacer(topPad, 'modbus-top-spacer')}
+                        {visibleItems.map((renderItem, visibleIndex) => {
+                            if (renderItem.kind === 'header') {
+                                const isCollapsed = collapsedGroups.has(renderItem.deviceId);
+                                return (
+                                    <TableRow key={`modbus-group-${renderItem.deviceId}`}>
+                                        <TableCell
+                                            colSpan={colCount}
+                                            style={styles.groupHeader}
+                                            onClick={() => toggleGroup(renderItem.deviceId)}
+                                        >
+                                            <IconButton size="small">
+                                                {isCollapsed ? <ChevronRightIcon /> : <ExpandMoreIcon />}
+                                            </IconButton>
+                                            {I18n.t('Slave ID')} {renderItem.deviceId} ({renderItem.count})
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            }
+                            const sortedItem = renderItem.sortedItem;
                             let id = `modbus.${props.instance}.`;
                             if (props.native.params.multiDeviceId) {
                                 id += `${props.regName}.${sortedItem.item.deviceId || 0}.`;
@@ -501,6 +691,7 @@ export default function RegisterTable(props: {
                                 <TableRow
                                     hover
                                     key={sortedItem.$index}
+                                    ref={visibleIndex === firstDataVisibleIndex ? firstRowRef : undefined}
                                 >
                                     {props.fields
                                         .filter(
@@ -569,6 +760,7 @@ export default function RegisterTable(props: {
                                 </TableRow>
                             );
                         })}
+                        {spacer(bottomPad, 'modbus-bottom-spacer')}
                     </TableBody>
                 </Table>
             </div>
@@ -579,6 +771,7 @@ export default function RegisterTable(props: {
                     onClose={() => setTsvDialogOpen(false)}
                     data={props.data}
                     fields={props.fields}
+                    name={props.regName}
                 />
             ) : null}
             <DeleteAllDialog

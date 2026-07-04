@@ -1,4 +1,12 @@
 {
+    "Freeze order while editing (do not re-sort)": "Zamroź kolejność podczas edycji (bez ponownego sortowania)",
+    "Group by device ID": "Grupuj według ID urządzenia",
+    "Load from file": "Wczytaj z pliku",
+    "Save to file": "Zapisz do pliku",
+    "Edit data": "Edytuj dane",
+    "Edit or export data (TSV, CSV, JSON)": "Edytuj lub eksportuj dane (TSV, CSV, JSON)",
+    "Format": "Format",
+    "You can copy, paste and edit the data.": "Możesz kopiować, wklejać i edytować dane.",
     "Add DB": "Dodaj DB",
     "Add line": "Dodaj linię",
     "Address": "Adres",
