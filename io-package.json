@@ -1,11 +1,11 @@
 {
   "common": {
     "name": "modbus",
-    "version": "8.3.1-alpha.7",
+    "version": "8.3.1-alpha.8",
     "news": {
-      "8.3.1-alpha.7": {
-        "en": "Slave mode: optional per-register-type read notifications when an external master reads registers; the read counter is read-only and always numeric (no pulse mode)",
-        "de": "Slave-Modus: optionale Lese-Benachrichtigungen pro Registertyp, wenn ein externer Master Register liest; der Lese-Zähler ist read-only und immer numerisch (kein Pulse-Modus)"
+      "8.3.1-alpha.8": {
+        "en": "Slave mode: optional per-register-type read notifications when an external master reads registers; the read counter is read-only and always numeric (no pulse mode).\nUses a pinned @iobroker/modbus fork (v7.6.0 base) that also includes the slave \"connected masters\" fix (correct remote master IPs + zombie-socket cleanup).",
+        "de": "Slave-Modus: optionale Lese-Benachrichtigungen pro Registertyp, wenn ein externer Master Register liest; der Lese-Zähler ist read-only und immer numerisch (kein Pulse-Modus).\nNutzt einen gepinnten @iobroker/modbus-Fork (v7.6.0-Basis), der zusätzlich den Slave-\"connected masters\"-Fix enthält (korrekte Master-IPs + Zombie-Socket-Cleanup)."
       },
       "8.3.0": {
         "en": "Added a \"Max address gap to combine\" setting (issue #581): controls how large an address gap may be bridged when combining registers into one read request. Set it to 0 to read only contiguous configured registers, so devices that reject a non-existent register in a gap no longer fail the whole read (requires `@iobroker/modbus` >= 7.5.1)\nAdded per-device timeout and wait time (issue #605): when \"Multi device IDs\" is enabled, the Connection tab shows a table of all device IDs used in the register tables, each with its own timeout and wait time (blank = global value)\nAdded a proxy mode (issue #775): a master can additionally serve its polled data as a Modbus TCP slave. Enable it in the Connection tab (requires `@iobroker/modbus` >= 7.5.1)\nFixed the TCP/SSL master not recovering after a communication loss (issue #594, via `@iobroker/modbus`): the receive buffer is now cleared and the socket recreated on every reconnect, so a frame cut off by the disconnect can no longer desync the parser and permanently break polling until an adapter restart\nFixed cyclic write of non-polled holding registers in immediate-write mode `maxBlock < 2` (follow-up to issue #771, via `@iobroker/modbus`)\nUpdated the `@iobroker/modbus` package: fixed `Put.floatle()` to write a valid IEEE-754 little-endian float and to stop dropping data written after it",
