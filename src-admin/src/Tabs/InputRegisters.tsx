@@ -190,7 +190,20 @@ export default class InputRegisters extends BaseRegisters {
             ) {
                 data[index].len = 2;
             }
-            if (['uint64be', 'uint64le', 'doublebe', 'doublele'].includes(value as Modbus.RegisterEntryType)) {
+            if (
+                [
+                    'uint64be',
+                    'uint64le',
+                    'int64be',
+                    'int64le',
+                    'uint64bestr',
+                    'uint64lestr',
+                    'int64bestr',
+                    'int64lestr',
+                    'doublebe',
+                    'doublele',
+                ].includes(value as Modbus.RegisterEntryType)
+            ) {
                 data[index].len = 4;
             }
         }

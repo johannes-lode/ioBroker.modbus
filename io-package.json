@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "modbus",
-    "version": "8.3.1-alpha.8",
+    "version": "8.3.1-alpha.9",
     "news": {
+      "8.3.1-alpha.9": {
+        "en": "Admin UI: the register type dropdown now also offers signed 64-bit integers (int64be/int64le) and the new string-typed 64-bit variants (uint64/int64 be/le \"as string\") for exact values beyond 2^53; selecting them also sets the correct register length (4).\nUses a pinned @iobroker/modbus fork that fixes 64-bit integer register encoding/decoding (correct high word, correct signed two's complement) and adds the string-typed 64-bit register types.",
+        "de": "Admin-UI: Die Registertyp-Auswahl bietet jetzt auch vorzeichenbehaftete 64-Bit-Ganzzahlen (int64be/int64le) sowie die neuen String-64-Bit-Varianten (uint64/int64 be/le „as string“) für exakte Werte jenseits von 2^53; bei Auswahl wird zudem die korrekte Registerlänge (4) gesetzt.\nNutzt einen gepinnten @iobroker/modbus-Fork, der die 64-Bit-Ganzzahl-Kodierung/-Dekodierung korrigiert (korrektes High-Word, korrektes vorzeichenbehaftetes Zweierkomplement) und die String-64-Bit-Registertypen ergänzt."
+      },
       "8.3.1-alpha.8": {
         "en": "Slave mode: optional per-register-type read notifications when an external master reads registers; the read counter is read-only and always numeric (no pulse mode).\nUses a pinned @iobroker/modbus fork (v7.6.0 base) that also includes the slave \"connected masters\" fix (correct remote master IPs + zombie-socket cleanup).",
         "de": "Slave-Modus: optionale Lese-Benachrichtigungen pro Registertyp, wenn ein externer Master Register liest; der Lese-Zähler ist read-only und immer numerisch (kein Pulse-Modus).\nNutzt einen gepinnten @iobroker/modbus-Fork (v7.6.0-Basis), der zusätzlich den Slave-\"connected masters\"-Fix enthält (korrekte Master-IPs + Zombie-Socket-Cleanup)."
