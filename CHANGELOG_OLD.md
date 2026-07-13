@@ -1,4 +1,7 @@
 # Older changes
+## 8.1.3 (2026-04-13)
+- (@GermanBluefox) Corrected room definition for the first register
+
 ## 8.1.2 (2026-04-13)
 * (@GermanBluefox) Added sanitizing of the values
 * (@GermanBluefox) Added "ttyADM***" to the list of possible serial ports
