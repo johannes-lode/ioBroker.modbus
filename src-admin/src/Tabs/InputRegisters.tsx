@@ -161,9 +161,19 @@ export default class InputRegisters extends BaseRegisters {
         (data[index] as unknown as Record<string, string | boolean | number>)[name] = value;
         if (name === 'type') {
             if (
-                ['', 'uint16be', 'uint16le', 'int16be', 'int16le', 'uint8be', 'uint8le', 'int8be', 'int8le'].includes(
-                    value as Modbus.RegisterEntryType,
-                )
+                [
+                    '',
+                    'uint16be',
+                    'uint16le',
+                    'int16be',
+                    'int16le',
+                    'uint8be',
+                    'uint8le',
+                    'int8be',
+                    'int8le',
+                    'signExtendedInt8be',
+                    'signExtendedInt8le',
+                ].includes(value as Modbus.RegisterEntryType)
             ) {
                 data[index].len = 1;
             }
@@ -190,7 +200,20 @@ export default class InputRegisters extends BaseRegisters {
             ) {
                 data[index].len = 2;
             }
-            if (['uint64be', 'uint64le', 'doublebe', 'doublele'].includes(value as Modbus.RegisterEntryType)) {
+            if (
+                [
+                    'uint64be',
+                    'uint64le',
+                    'int64be',
+                    'int64le',
+                    'uint64bestr',
+                    'uint64lestr',
+                    'int64bestr',
+                    'int64lestr',
+                    'doublebe',
+                    'doublele',
+                ].includes(value as Modbus.RegisterEntryType)
+            ) {
                 data[index].len = 4;
             }
         }

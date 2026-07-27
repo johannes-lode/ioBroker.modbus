@@ -352,6 +352,8 @@ There are some programs in folder `test` to test the TCP communication:
 -->
 ### **WORK IN PROGRESS**
 - (@johannes-lode) Slave mode: added a read-notification UI (requires `@iobroker/modbus` with read-notify support, see ioBroker/modbus#19). In slave mode you can now enable per-namespace read notifications (coils, discrete inputs, input registers, holding registers) and a counter expire time from the instance settings. A read-only counter state under `readNotify.<namespace>.<id>` increments whenever an external master reads a register; the notification fires after the response has already gone out, so an updated value only takes effect on the master's next read
+- (@johannes-lode) Added signed and string-typed 64-bit integer register types to the register-type dropdown (`int64be`/`int64le` and the `uint64`/`int64` be/le "as string" variants) for exact values beyond 2^53 (requires `@iobroker/modbus`, see ioBroker/modbus#15); selecting a 64-bit type also sets the register length to 4
+- (@johannes-lode) Added sign-extended int8 register types `signExtendedInt8be`/`signExtendedInt8le` to the register-type dropdown, so a foreign master reading the register as int16 gets the correct signed value (requires `@iobroker/modbus`, see ioBroker/modbus#17)
 
 ### 8.3.1 (2026-07-13)
 - (@GermanBluefox) Fixed repeated `Can not set value: The value of "offset" is out of range` errors when a device answers a combined read block with fewer registers than requested (issue #502, via `@iobroker/modbus`): the short response is now reported with a single clear warning and the values that were returned are still stored. Workaround without the update: set "Max address gap to combine" to 0

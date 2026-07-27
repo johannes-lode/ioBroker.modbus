@@ -168,7 +168,19 @@ export default class HoldingRegisters extends BaseRegisters {
 
         if (name === 'type') {
             if (
-                ['', 'uint16be', 'uint16le', 'int16be', 'int16le', 'uint8be', 'uint8le', 'int8be', 'int8le'].includes(
+                [
+                    '',
+                    'uint16be',
+                    'uint16le',
+                    'int16be',
+                    'int16le',
+                    'uint8be',
+                    'uint8le',
+                    'int8be',
+                    'int8le',
+                    'signExtendedInt8be',
+                    'signExtendedInt8le',
+                ].includes(
                     value as Modbus.RegisterEntryType,
                 )
             ) {
@@ -195,7 +207,20 @@ export default class HoldingRegisters extends BaseRegisters {
                 ].includes(value as Modbus.RegisterEntryType)
             ) {
                 data[index].len = 2;
-            } else if (['uint64be', 'uint64le', 'doublebe', 'doublele'].includes(value as Modbus.RegisterEntryType)) {
+            } else if (
+                [
+                    'uint64be',
+                    'uint64le',
+                    'int64be',
+                    'int64le',
+                    'uint64bestr',
+                    'uint64lestr',
+                    'int64bestr',
+                    'int64lestr',
+                    'doublebe',
+                    'doublele',
+                ].includes(value as Modbus.RegisterEntryType)
+            ) {
                 data[index].len = 4;
             }
         }
