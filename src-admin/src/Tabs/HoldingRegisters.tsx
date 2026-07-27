@@ -168,7 +168,19 @@ export default class HoldingRegisters extends BaseRegisters {
 
         if (name === 'type') {
             if (
-                ['', 'uint16be', 'uint16le', 'int16be', 'int16le', 'uint8be', 'uint8le', 'int8be', 'int8le'].includes(
+                [
+                    '',
+                    'uint16be',
+                    'uint16le',
+                    'int16be',
+                    'int16le',
+                    'uint8be',
+                    'uint8le',
+                    'int8be',
+                    'int8le',
+                    'signExtendedInt8be',
+                    'signExtendedInt8le',
+                ].includes(
                     value as Modbus.RegisterEntryType,
                 )
             ) {

@@ -24,6 +24,8 @@
     { "value": "uint8le", "title": "Unsigned 8 bit (Little Endian)" },
     { "value": "int8be", "title": "Signed 8 bit (Big Endian)" },
     { "value": "int8le", "title": "Signed 8 bit (Little Endian)" },
+    { "value": "signExtendedInt8be", "title": "Sign-extended 8 bit (Big Endian, int16 read-back)" },
+    { "value": "signExtendedInt8le", "title": "Sign-extended 8 bit (Little Endian, int16 read-back)" },
     { "value": "floatbe", "title": "Float (Big Endian)" },
     { "value": "floatle", "title": "Float (Little Endian)" },
     { "value": "floatsw", "title": "Float (Big Endian Word Swap)" },
