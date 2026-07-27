@@ -192,5 +192,13 @@
     "Max address gap to combine": "合并的最大地址间隔",
     "Reading registers with gaps": "读取有间隔的寄存器",
     "maxGap_help": "此地址间隔内的寄存器将在一个请求中读取。0 = 仅读取连续配置的寄存器；数值越大请求越少，但会读取中间的地址。默认 10。",
-    "maxGapExplanation": "为了减少 Modbus 请求的数量，适配器会将多个已配置的寄存器合并到一个读取请求中，即使它们的地址之间存在小的间隔。这样更快，但也会读取这些间隔中的寄存器——它们不在您的配置中，并且设备上可能不存在。有些设备会对此类请求返回 \"ILLEGAL DATA ADDRESS\"（非法数据地址）错误，导致整个块读取失败。此选项设置可以跨越多大的间隔（以寄存器计）。设置为 0 时，仅合并地址连续的寄存器，适配器将只读取您配置的寄存器（连续的寄存器仍会合并为一个请求）。数值越大，合并越激进、请求越少，但有读取不存在地址的风险。默认值：10。"
+    "maxGapExplanation": "为了减少 Modbus 请求的数量，适配器会将多个已配置的寄存器合并到一个读取请求中，即使它们的地址之间存在小的间隔。这样更快，但也会读取这些间隔中的寄存器——它们不在您的配置中，并且设备上可能不存在。有些设备会对此类请求返回 \"ILLEGAL DATA ADDRESS\"（非法数据地址）错误，导致整个块读取失败。此选项设置可以跨越多大的间隔（以寄存器计）。设置为 0 时，仅合并地址连续的寄存器，适配器将只读取您配置的寄存器（连续的寄存器仍会合并为一个请求）。数值越大，合并越激进、请求越少，但有读取不存在地址的风险。默认值：10。",
+  "Read notification": "读取通知",
+  "readNotifyExplanation": "作为 Modbus 从站运行时，每当外部主站读取寄存器，都会在 readNotify.<namespace>.<id> 下写入一个通知状态。该状态为只读，并在每次读取时递增（可选地设置过期时间用于看门狗用途）。该通知是在响应已经发送给主站之后才发出的，因此更新后的值只在主站下一次读取时才生效。",
+  "Counter expire time": "计数器过期时间",
+  "notifyOnReadExpire_help": "计数器状态的过期时间（秒）。0 表示禁用过期。可用作看门狗，以检测主站何时停止读取。",
+  "Notify on read: Coils": "读取时通知：Coils",
+  "Notify on read: Discrete inputs": "读取时通知：Discrete Inputs",
+  "Notify on read: Input registers": "读取时通知：Input Registers",
+  "Notify on read: Holding registers": "读取时通知：Holding Registers"
 }
