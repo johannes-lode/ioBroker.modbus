@@ -30,6 +30,6 @@ export default [
         },
     },
     {
-        ignores: ['build/**/*', 'node_modules/**/*', 'src/serviceWorker.js', 'vite.config.mjs'],
+        ignores: ['build/**/*', 'node_modules/**/*', 'src/serviceWorker.js', 'vite.config.ts'],
     },
 ];

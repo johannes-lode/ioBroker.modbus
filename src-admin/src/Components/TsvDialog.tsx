@@ -27,7 +27,7 @@ import {
     FileUpload as FileUploadIcon,
 } from '@mui/icons-material';
 
-import { I18n, type ThemeType, Utils } from '@iobroker/adapter-react-v5';
+import { I18n, type ThemeType, Utils } from '@iobroker/gui-components';
 import type { RegisterField } from '../types';
 import type { Modbus } from '@iobroker/modbus';
 
@@ -192,7 +192,7 @@ function parse(
     const data = dataRows.map((itemValues, itemIndex) => {
         const item = {} as Modbus.Register;
         for (let index = 0; index < fields.length; index++) {
-            let value: string | boolean = itemValues[index] as string;
+            let value: string | boolean = itemValues[index];
             if (
                 fields[index].type === 'select' &&
                 !fields[index].options?.map(option => option.value).includes(value as string)

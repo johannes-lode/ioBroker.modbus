@@ -7,13 +7,13 @@ import { parseAddress, direct2nonDirect, alias2address } from '../Components/Uti
 import type { RegisterField } from '../types';
 import type { Modbus } from '@iobroker/modbus';
 
-import type { AdminConnection, ThemeType } from '@iobroker/adapter-react-v5';
+import type { AdminConnection, ThemeType } from '@iobroker/gui-components';
 
 interface BaseRegistersProps {
     native: Modbus.ModbusAdapterConfig;
     instance: number;
     adapterName: string;
-    onChange: (field: string, value: Modbus.Register[]) => void;
+    onChange: (field: Modbus.RegisterType, value: Modbus.Register[]) => void;
     changed?: boolean;
     socket: AdminConnection;
     rooms?: Record<string, ioBroker.EnumObject>;
