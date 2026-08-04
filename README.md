@@ -350,7 +350,7 @@ There are some programs in folder `test` to test the TCP communication:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 9.0.0 (2026-08-04)
 - (@GermanBluefox) Node.js 22 is required or higher
 - (@GermanBluefox) GUI migrated to React 19/MUI9
 
@@ -377,9 +377,6 @@ There are some programs in folder `test` to test the TCP communication:
 
 ### 8.2.1 (2026-06-27)
 - (@GermanBluefox) Allowed the selection of port by USB path
-
-### 8.2.0 (2026-05-29)
-- (@GermanBluefox) Added selection of the serial device by its stable USB ID (vendor/product/serial), so the connection keeps working even if the OS reassigns the port name
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

@@ -1,4 +1,7 @@
 # Older changes
+## 8.2.0 (2026-05-29)
+- (@GermanBluefox) Added selection of the serial device by its stable USB ID (vendor/product/serial), so the connection keeps working even if the OS reassigns the port name
+
 ## 8.1.3 (2026-04-13)
 - (@GermanBluefox) Corrected room definition for the first register
 
