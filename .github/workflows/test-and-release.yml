@@ -32,8 +32,7 @@ jobs:
       - uses: ioBroker/testing-action-check@v2
         with:
           node-version: '24.x'
-          # Uncomment the following line if your adapter cannot be installed using 'npm ci'
-          # install-command: 'npm install'
+          install-command: 'npm install && cd src-admin && npm install -f'
           lint: true
 
   # Runs adapter tests on all supported node versions and OSes
@@ -52,6 +51,7 @@ jobs:
         with:
           build: true
           os: 'ubuntu-latest'
+          install-command: 'npm install && cd src-admin && npm install -f'
           node-version: ${{ matrix.node-version }}
 
   # Deploys the final package to NPM
@@ -76,7 +76,5 @@ jobs:
         with:
           node-version: '24.x'
           build: true
-          # Uncomment the following line if your adapter cannot be installed using 'npm ci'
-          # install-command: 'npm install'
-          # npm-token: ${{ secrets.NPM_TOKEN }}
+          install-command: 'npm install && cd src-admin && npm install -f'
           github-token: ${{ secrets.GITHUB_TOKEN }}
