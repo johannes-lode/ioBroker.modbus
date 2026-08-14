@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Alert, Box, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 
-import { I18n } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/gui-components';
 import type { Modbus } from '@iobroker/modbus';
 
 /** Per-device settings entry. */

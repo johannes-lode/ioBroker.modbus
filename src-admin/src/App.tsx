@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
-import { AppBar, Tabs, Tab } from '@mui/material';
+import { AppBar, Tabs, Tab, CssBaseline } from '@mui/material';
 
 import { AiOutlineFieldBinary as BinaryIcon } from 'react-icons/ai';
 import { TiSortNumerically as DigitsIcon } from 'react-icons/ti';
@@ -10,11 +10,12 @@ import {
     Loader,
     I18n,
     GenericApp,
+    ScrollbarStyles,
     type IobTheme,
     type GenericAppProps,
     type GenericAppState,
     AdminConnection,
-} from '@iobroker/adapter-react-v5';
+} from '@iobroker/gui-components';
 
 import TabSettings from './Tabs/Settings';
 import TabInputRegisters from './Tabs/InputRegisters';
@@ -114,7 +115,7 @@ interface AppState extends GenericAppState {
     systemConfig: ioBroker.SystemConfigObject | null;
 }
 
-class App extends GenericApp<GenericAppProps, AppState> {
+export default class App extends GenericApp<GenericAppProps, AppState> {
     constructor(props: GenericAppProps) {
         const extendedProps = { ...props };
         extendedProps.encryptedFields = ['pass'];
@@ -188,7 +189,7 @@ class App extends GenericApp<GenericAppProps, AppState> {
                 native={this.state.native as Modbus.ModbusAdapterConfig}
                 instance={this.instance}
                 adapterName={this.adapterName}
-                changeNative={(native: Modbus.ModbusAdapterConfig): void =>
+                changeNative={(native: ioBroker.AdapterConfig): void =>
                     this.setState({ native, changed: this.getIsChanged(native) })
                 }
                 themeType={this.state.themeType}
@@ -210,7 +211,7 @@ class App extends GenericApp<GenericAppProps, AppState> {
                 native={this.state.native as Modbus.ModbusAdapterConfig}
                 instance={this.instance}
                 adapterName={this.adapterName}
-                changeNative={(native: Modbus.ModbusAdapterConfig): void =>
+                changeNative={(native: ioBroker.AdapterConfig): void =>
                     this.setState({ native, changed: this.getIsChanged(native) })
                 }
                 themeType={this.state.themeType}
@@ -324,7 +325,11 @@ class App extends GenericApp<GenericAppProps, AppState> {
             return (
                 <StyledEngineProvider injectFirst>
                     <ThemeProvider theme={this.state.theme}>
-                        <Loader themeType={this.state.themeType} />
+                        <CssBaseline />
+                        <Loader
+                            themeType={this.state.themeType}
+                            backgroundColor={this.state.theme.palette.background.default}
+                        />
                     </ThemeProvider>
                 </StyledEngineProvider>
             );
@@ -333,6 +338,8 @@ class App extends GenericApp<GenericAppProps, AppState> {
         return (
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
+                    <CssBaseline />
+                    <ScrollbarStyles theme={this.state.theme} />
                     <div
                         className="App"
                         style={{
@@ -384,5 +391,3 @@ class App extends GenericApp<GenericAppProps, AppState> {
         );
     }
 }
-
-export default App;

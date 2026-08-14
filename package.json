@@ -1,6 +1,6 @@
 {
   "name": "iobroker.modbus",
-  "version": "8.3.1",
+  "version": "9.0.1",
   "description": "Connect devices oder Modbus protocol to ioBroker",
   "author": {
     "name": "bluefox",
@@ -25,25 +25,24 @@
     "url": "https://github.com/ioBroker/ioBroker.modbus"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "optionalDependencies": {
     "serialport": "^13.0.0"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.4.2",
+    "@iobroker/adapter-core": "^3.4.3",
     "@iobroker/modbus": "^7.6.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^5.2.1",
     "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
-    "@alcalzone/release-script-plugin-license": "^5.2.0",
+    "@alcalzone/release-script-plugin-license": "^5.2.2",
     "@iobroker/build-tools": "^3.0.1",
     "@iobroker/eslint-config": "^2.3.4",
     "@iobroker/testing": "^5.3.0",
-    "@tsconfig/node20": "^20.1.9",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "^20.19.43",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/node": "^22.20.1",
     "modbus-stack": "^0.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
@@ -65,10 +64,11 @@
     "release": "release-script",
     "lint": "eslint -c eslint.config.mjs",
     "build-backend": "tsc -p tsconfig.build.json",
+    "check-admin": "tsc -p src-admin/tsconfig.json",
     "release-patch": "release-script patch --yes",
     "release-minor": "release-script minor --yes",
     "release-major": "release-script major --yes",
-    "build": "npm run build-backend && node tasks",
+    "build": "npm run build-backend && npm run check-admin && node tasks",
     "update-packages": "npx -y npm-check-updates --upgrade && cd src-admin && npx -y npm-check-updates --upgrade",
     "npm": "npm i && cd src-admin && npm i -f",
     "0-clean": "node tasks.js --0-clean",

@@ -3,33 +3,23 @@
 {
     "compilerOptions": {
         "module": "esnext",
-        "moduleResolution": "node",
-        // check JS files
+        "moduleResolution": "bundler",
         "allowJs": true,
-        // This is necessary for the automatic typing of the adapter config
         "resolveJsonModule": true,
-        // If you want to disable the stricter type checks (not recommended), uncomment the following line
-        // "strict": false,
-        // And enable some of those features for more fine-grained control
+        "strict": true,
         "strictNullChecks": true,
-        // "strictPropertyInitialization": true,
-        // "strictBindCallApply": true,
-        // "noUnusedLocals": true,
-        // "noUnusedParameters": true,
         "useUnknownInCatchVariables": false,
         "target": "ES2022",
-        "baseUrl": "./",
+        "rootDir": "./src",
         "allowSyntheticDefaultImports": true,
         "checkJs": false,
-        "noEmit": false,
-        "outDir": "./build",
-        "sourceMap": true,
-        "sourceRoot": "./src",
+        // Vite creates the bundle in ./build, tsc is only used for type checking
+        "noEmit": true,
         "noImplicitAny": true,
         "skipLibCheck": true,
         "verbatimModuleSyntax": true,
-        "lib": ["es2018", "DOM"],
-        "jsx": "react",
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "jsx": "react-jsx",
         "types": ["@iobroker/types"]
     },
     "include": ["./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.d.ts", "./src/**/*.tsx", "./src/**/*.json", "./src/**/*.css"],

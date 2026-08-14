@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { AdminConnection, IobTheme, ThemeName, ThemeType } from '@iobroker/adapter-react-v5';
+import type { AdminConnection, IobTheme, ThemeName, ThemeType } from '@iobroker/gui-components';
 
 import { address2alias, nonDirect2direct, direct2nonDirect, alias2address } from '../Components/Utils';
 import { type ConfigItemPanel, JsonConfigComponent } from '@iobroker/json-config';
